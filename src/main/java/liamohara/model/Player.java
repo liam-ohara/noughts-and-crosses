@@ -8,8 +8,14 @@ public class Player {
 
     int playerScore = 0;
 
-    public Player(String playerName) {
+    boolean isNought = false;
+
+    boolean isCross = false;
+
+    public Player(String playerName, boolean isNought, boolean isCross) {
         this.playerName = playerName;
+        this.isNought = isNought;
+        this.isCross = isCross;
     }
 
     public String getPlayerName() {
@@ -24,6 +30,14 @@ public class Player {
         return playerScore;
     }
 
+    public boolean isNought() {
+        return isNought;
+    }
+
+    public boolean isCross() {
+        return isCross;
+    }
+
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
@@ -34,5 +48,13 @@ public class Player {
 
     public void setPlayerScore(int playerScore) {
         this.playerScore = playerScore;
+    }
+
+    public void setNought(boolean nought) {
+        isNought = nought;
+    }
+
+    public void setCross(boolean cross) {
+        isCross = cross;
     }
 }
