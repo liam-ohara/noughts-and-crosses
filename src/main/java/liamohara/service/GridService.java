@@ -1,6 +1,6 @@
 package liamohara.service;
 
-public interface GameService {
+public interface GridService {
 
     String getGrid();
 
