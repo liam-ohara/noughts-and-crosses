@@ -4,6 +4,8 @@ public class Game {
 
     private int id;
 
+    private int movesRemaining = 6;
+
     private Player winner;
 
     public Game(int id) {
@@ -14,12 +16,20 @@ public class Game {
         return id;
     }
 
+    public int getMovesRemaining() {
+        return movesRemaining;
+    }
+
     public Player getWinner() {
         return winner;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setMovesRemaining(int movesRemaining) {
+        this.movesRemaining = movesRemaining;
     }
 
     public void setWinner(Player winner) {
