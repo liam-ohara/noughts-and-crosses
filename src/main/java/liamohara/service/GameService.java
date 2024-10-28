@@ -2,7 +2,7 @@ package liamohara.service;
 
 public interface GameService {
 
-    String[][] getGrid();
+    String getGrid();
 
-    void updateGrid(String[][] grid);
+    void updateGrid(int row, int column, boolean isNought);
 }
