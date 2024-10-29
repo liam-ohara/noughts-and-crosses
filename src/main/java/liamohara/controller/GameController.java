@@ -14,7 +14,7 @@ public class GameController {
     }
 
     public int getMovesRemaining(int gameId) {
-        return 0;
+        return gameManagerService.getMovesRemaining(gameId);
     }
 
     public void updateMovesRemaining(int gameId) {}

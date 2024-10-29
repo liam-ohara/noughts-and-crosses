@@ -38,4 +38,19 @@ class GameControllerTest {
 
     }
 
+    @Test
+    @DisplayName("Returns 6 when at the start of new game when no players have moved")
+    void testGetMovesRemaining_WhenNoPlayersHaveMoved() {
+
+        int gameId = 1;
+        int expectedMovesRemaining = 6;
+
+        when(mockGameManagerServiceImpl.getMovesRemaining(gameId)).thenReturn(6);
+
+        int result = gameController.getMovesRemaining(gameId);
+
+        verify(mockGameManagerServiceImpl, times(1)).getMovesRemaining(gameId);
+        assertEquals(expectedMovesRemaining, result);
+
+    }
 }
