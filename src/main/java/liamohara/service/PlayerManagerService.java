@@ -2,12 +2,12 @@ package liamohara.service;
 
 public interface PlayerManagerService {
 
-    void updatePlayerMovesRemaining();
+    void updatePlayerMovesRemaining(String playerName);
 
-    int getPlayerMovesRemaining();
+    int getPlayerMovesRemaining(String playerName);
 
-    int getPlayerScore();
+    int getPlayerScore(String playerName);
 
-    void updatePlayerScore();
+    void updatePlayerScore(String playerName);
 
 }

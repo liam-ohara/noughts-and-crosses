@@ -3,22 +3,22 @@ package liamohara.service;
 public class PlayerManagerServiceImpl implements PlayerManagerService {
 
     @Override
-    public void updatePlayerMovesRemaining() {
+    public void updatePlayerMovesRemaining(String playerName) {
 
     }
 
     @Override
-    public int getPlayerMovesRemaining() {
+    public int getPlayerMovesRemaining(String playerName) {
         return 0;
     }
 
     @Override
-    public int getPlayerScore() {
+    public int getPlayerScore(String playerName) {
         return 0;
     }
 
     @Override
-    public void updatePlayerScore() {
+    public void updatePlayerScore(String playerName) {
 
     }
 }
