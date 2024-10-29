@@ -86,5 +86,18 @@ public class GameManagerServiceImpl implements GameManagerService {
     @Override
     public void setWinner(int gameId, Player winner) {
 
+        List<Game> listOfGames;
+
+        listOfGames = gamesRepository.getListOfGames();
+
+        if (!(listOfGames.isEmpty())) {
+            for (int i = 0; i < listOfGames.size(); i++) {
+
+                if (listOfGames.get(i).getId() == gameId) {
+                    listOfGames.get(i).setWinner(winner);
+
+                }
+            }
+        }
     }
 }

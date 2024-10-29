@@ -133,7 +133,23 @@ class GameManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Sets winning player to game attribute when game has ended")
+    void testSetWinner_WhenGameHasNoMovesRemaining() {
 
+        firstGame.setMovesRemaining(0);
+        listOfGames.add(firstGame);
+        String nameOfPlayerOne = "Player One";
+
+        when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+
+        gameManagerServiceImpl.setWinner(firstGame.getId(), playerOne);
+
+        verify(mockGamesRepository, times(1)).getListOfGames();
+
+        assertEquals(nameOfPlayerOne, firstGame.getWinner().getPlayerName());
+
+    }
 
 
 }
