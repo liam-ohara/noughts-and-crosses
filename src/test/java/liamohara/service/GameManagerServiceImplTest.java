@@ -47,4 +47,20 @@ class GameManagerServiceImplTest {
         assertEquals(1, result);
 
     }
+
+    @Test
+    @DisplayName("Returns 2 when new game is the second game")
+    void testStartNewGame_WhenNewGameItSecondGame() {
+
+        listOfGames.add(firstGame);
+
+        when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+
+        int result = gameManagerServiceImpl.startNewGame();
+
+        verify(mockGamesRepository, times(1)).getListOfGames();
+
+        assertEquals(2, result);
+
+    }
 }
