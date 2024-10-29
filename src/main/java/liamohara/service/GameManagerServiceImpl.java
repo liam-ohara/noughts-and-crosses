@@ -61,6 +61,23 @@ public class GameManagerServiceImpl implements GameManagerService {
 
     @Override
     public void updateMovesRemaining(int gameId) {
+
+        List<Game> listOfGames;
+
+        listOfGames = gamesRepository.getListOfGames();
+
+        int movesRemaining = 0;
+
+        if (!(listOfGames.isEmpty())) {
+            for (int i = 0; i < listOfGames.size(); i++) {
+
+                if (listOfGames.get(i).getId() == gameId) {
+                    movesRemaining = listOfGames.get(i).getMovesRemaining();
+                    listOfGames.get(i).setMovesRemaining(movesRemaining - 1);
+
+                }
+            }
+        }
     }
 
     @Override

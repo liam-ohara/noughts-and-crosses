@@ -1,6 +1,7 @@
 package liamohara.service;
 
 import liamohara.model.Game;
+import liamohara.model.Player;
 import liamohara.repository.GamesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,6 +33,7 @@ class GameManagerServiceImplTest {
 
     Game firstGame = new Game(1);
     List<Game> listOfGames = new ArrayList<>();
+    Player playerOne = new Player("Player One", true, false);
 
 
     @Test
@@ -96,6 +98,25 @@ class GameManagerServiceImplTest {
         assertEquals(2, result);
 
     }
+
+    @Test
+    @DisplayName("Reduces the number of moves remaining by 1 when a game has at least 1 move remaining")
+    void testUpdateMovesRemaining_WhenGameHasTwoMovesRemaining() {
+
+        firstGame.setMovesRemaining(2);
+        listOfGames.add(firstGame);
+
+        when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+
+        gameManagerServiceImpl.updateMovesRemaining(firstGame.getId());
+
+        verify(mockGamesRepository, times(1)).getListOfGames();
+
+        assertEquals(1, firstGame.getMovesRemaining());
+
+    }
+
+
 
 
 }
