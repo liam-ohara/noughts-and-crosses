@@ -151,5 +151,29 @@ class GameManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Leaves winning player of game unset when game has not ended")
+    void testSetWinner_WhenGameHasMovesRemaining() {
+
+        firstGame.setMovesRemaining(1);
+        listOfGames.add(firstGame);
+        String playerName = null;
+
+        when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+
+        gameManagerServiceImpl.setWinner(firstGame.getId(), playerOne);
+
+        verify(mockGamesRepository, times(1)).getListOfGames();
+
+        try {
+            assertNull(firstGame.getWinner().getPlayerName());
+        } catch (NullPointerException e) {
+            playerName = null;
+        }
+
+        assertNull(playerName);
+
+    }
+
 
 }

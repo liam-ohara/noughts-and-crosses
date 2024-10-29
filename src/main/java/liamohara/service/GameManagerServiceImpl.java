@@ -66,7 +66,7 @@ public class GameManagerServiceImpl implements GameManagerService {
 
         listOfGames = gamesRepository.getListOfGames();
 
-        int movesRemaining = 0;
+        int movesRemaining;
 
         if (!(listOfGames.isEmpty())) {
             for (int i = 0; i < listOfGames.size(); i++) {
@@ -90,12 +90,17 @@ public class GameManagerServiceImpl implements GameManagerService {
 
         listOfGames = gamesRepository.getListOfGames();
 
+        int movesRemaining;
+
         if (!(listOfGames.isEmpty())) {
             for (int i = 0; i < listOfGames.size(); i++) {
 
                 if (listOfGames.get(i).getId() == gameId) {
-                    listOfGames.get(i).setWinner(winner);
+                    movesRemaining = listOfGames.get(i).getMovesRemaining();
 
+                    if (movesRemaining == 0) {
+                        listOfGames.get(i).setWinner(winner);
+                    }
                 }
             }
         }
