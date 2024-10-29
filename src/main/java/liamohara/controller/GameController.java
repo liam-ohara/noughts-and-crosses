@@ -2,11 +2,15 @@ package liamohara.controller;
 
 import liamohara.model.Game;
 import liamohara.model.Player;
+import liamohara.service.GameManagerService;
+import liamohara.service.GameManagerServiceImpl;
 
 public class GameController {
 
+    GameManagerService gameManagerService = new GameManagerServiceImpl();
+
     public int startNewGame() {
-        return 0;
+        return gameManagerService.startNewGame();
     }
 
     public int getMovesRemaining(int gameId) {
