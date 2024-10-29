@@ -17,7 +17,9 @@ public class GameController {
         return gameManagerService.getMovesRemaining(gameId);
     }
 
-    public void updateMovesRemaining(int gameId) {}
+    public void updateMovesRemaining(int gameId) {
+        gameManagerService.updateMovesRemaining(gameId);
+    }
 
     public void setWinner (int gameId, Player winner) {}
 }

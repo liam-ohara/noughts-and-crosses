@@ -53,4 +53,16 @@ class GameControllerTest {
         assertEquals(expectedMovesRemaining, result);
 
     }
+
+    @Test
+    @DisplayName("Calls updateMovesRemaining method in Service layer once")
+    void testUpdateMovesRemaining() {
+
+        int gameId = 1;
+
+        gameController.updateMovesRemaining(gameId);
+
+        verify(mockGameManagerServiceImpl, times(1)).updateMovesRemaining(gameId);
+
+    }
 }
