@@ -19,7 +19,7 @@ public class GameManagerServiceImpl implements GameManagerService {
     }
 
     @Override
-    public void setWinner(Player winner) {
+    public void setWinner(int gameId, Player winner) {
 
     }
 }
