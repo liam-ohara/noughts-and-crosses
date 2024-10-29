@@ -5,10 +5,8 @@ import liamohara.model.Player;
 
 public class GameController {
 
-    private Game game;
-
-    public GameController(Game game) {
-        this.game = game;
+    public int startNewGame() {
+        return 0;
     }
 
     public int getMovesRemaining(int gameId) {
