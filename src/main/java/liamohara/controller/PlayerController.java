@@ -6,11 +6,6 @@ import java.util.List;
 
 public class PlayerController {
 
-    private List<Player> listOfPlayers;
-
-    public PlayerController(List<Player> listOfPlayers) {
-        this.listOfPlayers = listOfPlayers;
-    }
 
     public void updatePlayerMovesRemaining(String playerName) {}
 
