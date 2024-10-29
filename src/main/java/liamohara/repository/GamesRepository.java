@@ -2,14 +2,21 @@ package liamohara.repository;
 
 import liamohara.model.Game;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GamesRepository {
+public final class GamesRepository {
 
-    private List<Game> listOfGames;
+    private static GamesRepository INSTANCE;
+    private List<Game> listOfGames = new ArrayList<>();
 
-    public GamesRepository(List<Game> listOfGames) {
-        this.listOfGames = listOfGames;
+    private GamesRepository() {}
+
+    public static GamesRepository getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new GamesRepository();
+        }
+        return INSTANCE;
     }
 
     public List<Game> getListOfGames() {
