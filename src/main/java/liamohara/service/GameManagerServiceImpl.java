@@ -5,6 +5,11 @@ import liamohara.model.Player;
 public class GameManagerServiceImpl implements GameManagerService {
 
     @Override
+    public int startNewGame() {
+        return 0;
+    }
+
+    @Override
     public int getMovesRemaining() {
         return 0;
     }
