@@ -63,4 +63,20 @@ class GameManagerServiceImplTest {
         assertEquals(2, result);
 
     }
+
+    @Test
+    @DisplayName("Returns 6 when at the start of new game when no players have moved")
+    void testGetMovesRemaining_WhenNoPlayersHaveMoved() {
+
+        listOfGames.add(firstGame);
+
+        when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+
+        int result = gameManagerServiceImpl.getMovesRemaining(firstGame.getId());
+
+        verify(mockGamesRepository, times(1)).getListOfGames();
+
+        assertEquals(6, result);
+
+    }
 }

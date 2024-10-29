@@ -18,7 +18,7 @@ public class GameManagerServiceImpl implements GameManagerService {
 
         listOfGames = gamesRepository.getListOfGames();
 
-        int newGameId = 0;
+        int newGameId;
 
         if (listOfGames.isEmpty()) {
             Game firstGame = new Game(1);
@@ -37,7 +37,26 @@ public class GameManagerServiceImpl implements GameManagerService {
 
     @Override
     public int getMovesRemaining(int gameId) {
-        return 0;
+
+        List<Game> listOfGames;
+
+        listOfGames = gamesRepository.getListOfGames();
+
+        int movesRemaining = 0;
+
+        if (!(listOfGames.isEmpty())) {
+            for (int i = 0; i < listOfGames.size(); i++) {
+
+                if (listOfGames.get(i).getId() == gameId) {
+                    movesRemaining = listOfGames.get(i).getMovesRemaining();
+
+                }
+            }
+            return movesRemaining;
+
+        }
+        return movesRemaining;
+
     }
 
     @Override
