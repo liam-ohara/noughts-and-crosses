@@ -6,7 +6,7 @@ public interface GameManagerService {
 
     int startNewGame();
 
-    int getMovesRemaining();
+    int getMovesRemaining(int gameId);
 
     void updateMovesRemaining();
 

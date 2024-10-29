@@ -10,7 +10,7 @@ public class GameManagerServiceImpl implements GameManagerService {
     }
 
     @Override
-    public int getMovesRemaining() {
+    public int getMovesRemaining(int gameId) {
         return 0;
     }
 
