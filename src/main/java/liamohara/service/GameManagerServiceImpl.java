@@ -73,8 +73,11 @@ public class GameManagerServiceImpl implements GameManagerService {
 
                 if (listOfGames.get(i).getId() == gameId) {
                     movesRemaining = listOfGames.get(i).getMovesRemaining();
-                    listOfGames.get(i).setMovesRemaining(movesRemaining - 1);
 
+                    if (movesRemaining > 0) {
+                        listOfGames.get(i).setMovesRemaining(movesRemaining - 1);
+
+                    }
                 }
             }
         }

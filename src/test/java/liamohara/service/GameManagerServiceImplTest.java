@@ -116,6 +116,23 @@ class GameManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Leave number of moves remaining unchanged when a game has no moves remaining")
+    void testUpdateMovesRemaining_WhenGameHasNoMovesRemaining() {
+
+        firstGame.setMovesRemaining(0);
+        listOfGames.add(firstGame);
+
+        when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+
+        gameManagerServiceImpl.updateMovesRemaining(firstGame.getId());
+
+        verify(mockGamesRepository, times(1)).getListOfGames();
+
+        assertEquals(0, firstGame.getMovesRemaining());
+
+    }
+
 
 
 
