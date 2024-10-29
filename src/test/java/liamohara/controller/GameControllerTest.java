@@ -1,5 +1,6 @@
 package liamohara.controller;
 
+import liamohara.model.Player;
 import liamohara.service.GameManagerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,6 +64,19 @@ class GameControllerTest {
         gameController.updateMovesRemaining(gameId);
 
         verify(mockGameManagerServiceImpl, times(1)).updateMovesRemaining(gameId);
+
+    }
+
+    @Test
+    @DisplayName("Calls setWinner method in Service layer once")
+    void testSetWinner() {
+
+        int gameId = 1;
+        Player player = new Player("Player One", true, false);
+
+        gameController.setWinner(gameId, player);
+
+        verify(mockGameManagerServiceImpl, times(1)).setWinner(gameId, player);
 
     }
 }

@@ -21,5 +21,7 @@ public class GameController {
         gameManagerService.updateMovesRemaining(gameId);
     }
 
-    public void setWinner (int gameId, Player winner) {}
+    public void setWinner (int gameId, Player winner) {
+        gameManagerService.setWinner(gameId, winner);
+    }
 }
