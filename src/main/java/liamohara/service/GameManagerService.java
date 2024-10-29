@@ -8,7 +8,7 @@ public interface GameManagerService {
 
     int getMovesRemaining(int gameId);
 
-    void updateMovesRemaining();
+    void updateMovesRemaining(int gameId);
 
     void setWinner(Player winner);
 

@@ -15,8 +15,7 @@ public class GameManagerServiceImpl implements GameManagerService {
     }
 
     @Override
-    public void updateMovesRemaining() {
-
+    public void updateMovesRemaining(int gameId) {
     }
 
     @Override
