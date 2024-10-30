@@ -65,7 +65,6 @@ public class GameManagerServiceImpl implements GameManagerService {
         List<Game> listOfGames;
         listOfGames = gamesRepository.getListOfGames();
         Game updatedGame;
-
         int movesRemaining;
 
         if (!(listOfGames.isEmpty())) {
@@ -90,9 +89,8 @@ public class GameManagerServiceImpl implements GameManagerService {
     public void setWinner(int gameId, Player winner) {
 
         List<Game> listOfGames;
-
         listOfGames = gamesRepository.getListOfGames();
-
+        Game updatedGame;
         int movesRemaining;
 
         if (!(listOfGames.isEmpty())) {
@@ -100,9 +98,11 @@ public class GameManagerServiceImpl implements GameManagerService {
 
                 if (listOfGames.get(i).getId() == gameId) {
                     movesRemaining = listOfGames.get(i).getMovesRemaining();
+                    updatedGame = listOfGames.get(i);
 
                     if (movesRemaining == 0) {
-                        listOfGames.get(i).setWinner(winner);
+                        updatedGame.setWinner(winner);
+                        gamesRepository.updateGame(updatedGame);
                     }
                 }
             }
