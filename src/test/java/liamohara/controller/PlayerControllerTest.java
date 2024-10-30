@@ -113,7 +113,7 @@ class PlayerControllerTest {
 
     @Test
     @DisplayName("Throws PlayerRoleTakenException when player role has already been assigned.")
-    void testAddNewPlayer_WhenPlayerNameIsTaken() {
+    void testAddNewPlayer_WhenPlayerRoleIsTaken() {
 
         String playerName = "Player Two";
         boolean isNought = true;
