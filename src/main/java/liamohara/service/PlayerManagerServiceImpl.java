@@ -41,6 +41,25 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     @Override
     public void updatePlayerMovesRemaining(String playerName) {
 
+        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+        Player updatedPlayer;
+        int movesRemaining;
+        
+        if (!(listOfPlayers.isEmpty())) {
+            
+            for (int i = 0; i < listOfPlayers.size(); i++) {
+                if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(playerName)) {
+                    updatedPlayer = listOfPlayers.get(i);
+                    movesRemaining = updatedPlayer.getMovesRemaining();
+
+                    if (movesRemaining > 0) {
+                        updatedPlayer.setMovesRemaining(movesRemaining - 1);
+                        playersRepository.updatePlayer(updatedPlayer);
+
+                    }
+                }
+            }
+        }
     }
 
     @Override

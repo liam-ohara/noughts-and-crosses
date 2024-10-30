@@ -98,5 +98,47 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Calls getListOfPlayers and updatePlayer methods in PlayersRepository once each when player has moves remaining")
+    void testUpdatePlayerMovesRemaining_WhenPlayerHasMovesRemaining() {
+
+        listOfPlayers.add(playerOne);
+        listOfPlayers.add(playerTwo);
+        int expectedMovesRemaining = 2;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        playerManagerServiceImpl.updatePlayerMovesRemaining(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(1)).updatePlayer(Mockito.any());
+        assertEquals(expectedMovesRemaining, playerOne.getMovesRemaining());
+
+    }
+
+    @Test
+    @DisplayName("Calls getListOfPlayers method in PlayersRespository once only when player has no more moves remaining")
+    void testUpdatePlayerMovesRemaining_WhenPlayerHasNoMovesRemaining() {
+
+        playerOne.setMovesRemaining(0);
+        playerTwo.setMovesRemaining(1);
+        listOfPlayers.add(playerOne);
+        listOfPlayers.add(playerTwo);
+        int expectedMovesRemainingPlayerOne = 0;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        playerManagerServiceImpl.updatePlayerMovesRemaining(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(0)).updatePlayer(Mockito.any());
+        assertEquals(expectedMovesRemainingPlayerOne, playerOne.getMovesRemaining());
+
+    }
+
+
+
+
+
 
 }
