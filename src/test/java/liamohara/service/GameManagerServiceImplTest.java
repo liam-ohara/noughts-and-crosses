@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -113,6 +114,7 @@ class GameManagerServiceImplTest {
         gameManagerServiceImpl.updateMovesRemaining(firstGame.getId());
 
         verify(mockGamesRepository, times(1)).getListOfGames();
+        verify(mockGamesRepository, times(1)).updateGame(Mockito.any());
 
         assertEquals(updatedFirstGame.getMovesRemaining(), gameManagerServiceImpl.getMovesRemaining(1));
 
@@ -130,6 +132,7 @@ class GameManagerServiceImplTest {
         gameManagerServiceImpl.updateMovesRemaining(firstGame.getId());
 
         verify(mockGamesRepository, times(1)).getListOfGames();
+        verify(mockGamesRepository, times(0)).updateGame(Mockito.any());
 
         assertEquals(0, firstGame.getMovesRemaining());
 
