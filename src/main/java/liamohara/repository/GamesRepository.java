@@ -26,4 +26,14 @@ public final class GamesRepository {
     public void addNewGame(Game newGame) {
         listOfGames.add(newGame);
     }
+
+    public void updateGame(Game game) {
+        for (int i = 0; i < listOfGames.size(); i++) {
+
+            if (listOfGames.get(i).getId() == game.getId()) {
+                listOfGames.set(i, game);
+
+            }
+        }
+    }
 }
