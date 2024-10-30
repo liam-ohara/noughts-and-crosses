@@ -136,9 +136,19 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Returns 3 when player has not moved")
+    void testGetPlayerMovesRemaining_WhenPlayerHasNotMoved() {
 
+        listOfPlayers.add(playerOne);
+        int expectedMovesRemaining = 3;
 
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
 
+        int result = playerManagerServiceImpl.getPlayerMovesRemaining(playerOne.getPlayerName());
 
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedMovesRemaining, result);
 
+    }
 }
