@@ -202,4 +202,21 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Returns 0 when player not found.")
+    void testGetPlayerScore_WhenPlayerNotFound() {
+
+        playerOne.setPlayerScore(1);
+        listOfPlayers.add(playerOne);
+        int expectedPlayerScore = 0;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        int result = playerManagerServiceImpl.getPlayerScore(playerTwo.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedPlayerScore, result);
+
+    }
+
 }
