@@ -41,7 +41,7 @@ class PlayerManagerServiceImplTest {
     List<Player> listOfPlayers = new ArrayList<>();
 
     @Test
-    @DisplayName("Calls addNewPlayer method in PlayersRepository once.")
+    @DisplayName("Calls getListOfPlayers and addNewPlayer methods in PlayersRepository once each.")
     void testAddNewPlayer_WhenPlayersRepositoryIsEmpty() {
 
         playerManagerServiceImpl.addNewPlayer(playerOne.getPlayerName(), playerOne.isNought(), playerOne.isCross());
@@ -80,6 +80,21 @@ class PlayerManagerServiceImplTest {
 
         verify(mockPlayersRepository, times(1)).getListOfPlayers();
         verify(mockPlayersRepository, times(0)).addNewPlayer(Mockito.any());
+
+    }
+
+    @Test
+    @DisplayName("Calls getListOfPlayers and addNewPlayer methods in PlayersRepository once each when adding second player.")
+    void testAddNewPlayer_WhenAddingSecondPlayerWithUniqueNameAndRole() {
+
+        listOfPlayers.add(playerOne);
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        playerManagerServiceImpl.addNewPlayer(playerTwo.getPlayerName(), playerTwo.isNought(), playerTwo.isCross());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(1)).addNewPlayer(Mockito.any());
 
     }
 
