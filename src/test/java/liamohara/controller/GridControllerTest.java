@@ -39,7 +39,7 @@ class GridControllerTest {
     }
 
     @Test
-    @DisplayName("Return null two-dimension array of size 3x3 when no players have moved")
+    @DisplayName("Returns null two-dimensional array of size 3x3 when no players have moved")
     void testGetGrid_WhenNoPlayersHaveMoved() {
 
         int gameId = 1;
@@ -52,6 +52,24 @@ class GridControllerTest {
         verify(mockGridManagerServiceImpl, times(1)).getGrid(gameId);
 
         assertNull(result[0][0]);
+
+    }
+
+    @Test
+    @DisplayName("Returns two dimensional array of size 3x3 null except for row 0 column 0 which contains X when one player has moved")
+    void testGetGrid_WhenOnePlayerHasMoved() {
+
+        int gameId = 1;
+        String[][] grid = new String[3][3];
+        grid[0][0] = "X";
+
+        when(mockGridManagerServiceImpl.getGrid(gameId)).thenReturn(grid);
+
+        String[][] result = gridController.getGrid(gameId);
+
+        verify(mockGridManagerServiceImpl, times(1)).getGrid(gameId);
+
+        assertEquals("X", result[0][0]);
 
     }
 }
