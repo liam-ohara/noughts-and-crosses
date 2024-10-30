@@ -36,4 +36,20 @@ class PlayerControllerTest {
         verify(mockPlayerManagerServiceImpl, times(1)).updatePlayerMovesRemaining(playerName);
 
     }
+
+    @Test
+    @DisplayName("Returns 3 when at the start of the game the player has not moved")
+    void testGetPlayerMovesRemaining_WhenPlayerHasNotMoved() {
+
+        String playerName = "Player One";
+        int expectedMovesRemaining = 3;
+
+        when(mockPlayerManagerServiceImpl.getPlayerMovesRemaining(playerName)).thenReturn(3);
+
+        int result = playerController.getPlayerMovesRemaining(playerName);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).getPlayerMovesRemaining(playerName);
+        assertEquals(expectedMovesRemaining, result);
+
+    }
 }

@@ -16,7 +16,7 @@ public class PlayerController {
     }
 
     public int getPlayerMovesRemaining(String playerName) {
-        return 0;
+        return playerManagerService.getPlayerMovesRemaining(playerName);
     }
 
     public int getPlayerScore(String playerName) {
