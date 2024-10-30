@@ -253,4 +253,21 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Calls getListOfPlayers method in PlayersRepository once only when player still has moves remaining")
+    void testUpdatePlayerScore_WhenPlayerHasMovesRemaining() {
+
+        playerOne.setMovesRemaining(1);
+        listOfPlayers.add(playerOne);
+        int expectedPlayerScore = 0;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        playerManagerServiceImpl.updatePlayerScore(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(0)).updatePlayer(Mockito.any());
+        assertEquals(expectedPlayerScore, playerManagerServiceImpl.getPlayerScore(playerOne.getPlayerName()));
+
+    }
 }

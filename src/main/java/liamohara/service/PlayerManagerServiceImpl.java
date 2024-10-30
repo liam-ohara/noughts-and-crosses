@@ -109,10 +109,13 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
             for (int i = 0; i < listOfPlayers.size(); i++) {
                 if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(playerName)) {
                     updatedPlayer = listOfPlayers.get(i);
-                    playerScore = updatedPlayer.getPlayerScore();
-                    updatedPlayer.setPlayerScore(playerScore + 1);
-                    playersRepository.updatePlayer(updatedPlayer);
 
+                    if (updatedPlayer.getMovesRemaining() == 0) {
+                        playerScore = updatedPlayer.getPlayerScore();
+                        updatedPlayer.setPlayerScore(playerScore + 1);
+                        playersRepository.updatePlayer(updatedPlayer);
+
+                    }
                 }
             }
         }
