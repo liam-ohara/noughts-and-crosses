@@ -151,6 +151,7 @@ class GameManagerServiceImplTest {
         gameManagerServiceImpl.setWinner(firstGame.getId(), playerOne);
 
         verify(mockGamesRepository, times(1)).getListOfGames();
+        verify(mockGamesRepository, times(1)).updateGame(Mockito.any());
 
         assertEquals(nameOfPlayerOne, firstGame.getWinner().getPlayerName());
 
@@ -169,6 +170,7 @@ class GameManagerServiceImplTest {
         gameManagerServiceImpl.setWinner(firstGame.getId(), playerOne);
 
         verify(mockGamesRepository, times(1)).getListOfGames();
+        verify(mockGamesRepository, times(0)).updateGame(Mockito.any());
 
         try {
             assertNull(firstGame.getWinner().getPlayerName());
