@@ -2,6 +2,8 @@ package liamohara.service;
 
 public interface PlayerManagerService {
 
+    void addNewPlayer(String playerName, boolean isNought, boolean isCross);
+
     void updatePlayerMovesRemaining(String playerName);
 
     int getPlayerMovesRemaining(String playerName);

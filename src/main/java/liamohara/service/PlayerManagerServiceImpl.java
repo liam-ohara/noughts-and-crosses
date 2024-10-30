@@ -3,6 +3,9 @@ package liamohara.service;
 public class PlayerManagerServiceImpl implements PlayerManagerService {
 
     @Override
+    public void addNewPlayer(String playerName, boolean isNought, boolean isCross) {}
+
+    @Override
     public void updatePlayerMovesRemaining(String playerName) {
 
     }
