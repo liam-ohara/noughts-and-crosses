@@ -170,6 +170,22 @@ class PlayerManagerServiceImplTest {
     }
 
     @Test
+    @DisplayName("Returns 0 when player is not found")
+    void testGetPlayerMovesRemaining_WhenPlayerIsNotFound() {
+
+        listOfPlayers.add(playerOne);
+        int expectedMovesRemaining = 0;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        int result = playerManagerServiceImpl.getPlayerMovesRemaining(playerTwo.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedMovesRemaining, result);
+
+    }
+
+    @Test
     @DisplayName("Returns 0 when player has not won a game")
     void testGetPlayerScore_WhenPlayerHasNotWonAGame() {
 
