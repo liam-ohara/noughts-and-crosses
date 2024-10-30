@@ -17,7 +17,7 @@ public class Grid {
         return gameId;
     }
 
-    public void setGrid(String[][] grid, int gameId) {
+    public void setGrid(String[][] grid) {
         this.grid = grid;
     }
 }
