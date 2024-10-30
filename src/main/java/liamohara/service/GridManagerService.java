@@ -2,7 +2,7 @@ package liamohara.service;
 
 public interface GridManagerService {
 
-    void addNewGrid(String[][] grid, int gameId);
+    void addNewGrid(int gameId);
 
     String getGrid();
 

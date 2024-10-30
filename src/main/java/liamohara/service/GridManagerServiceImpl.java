@@ -3,7 +3,7 @@ package liamohara.service;
 public class GridManagerServiceImpl implements GridManagerService {
 
     @Override
-    public void addNewGrid(String[][] grid, int gameId) {
+    public void addNewGrid(int gameId) {
 
     }
 
