@@ -4,6 +4,8 @@ import liamohara.model.Player;
 
 public class GridController {
 
+    public void addNewGrid(int gameId) {}
+
     public String getGrid() {
         return "";
     }
