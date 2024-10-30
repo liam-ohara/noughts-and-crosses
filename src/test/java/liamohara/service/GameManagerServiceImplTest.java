@@ -32,6 +32,7 @@ class GameManagerServiceImplTest {
     }
 
     Game firstGame = new Game(1);
+    Game updatedFirstGame = new Game(1);
     List<Game> listOfGames = new ArrayList<>();
     Player playerOne = new Player("Player One", true, false);
 
@@ -104,6 +105,7 @@ class GameManagerServiceImplTest {
     void testUpdateMovesRemaining_WhenGameHasTwoMovesRemaining() {
 
         firstGame.setMovesRemaining(2);
+        updatedFirstGame.setMovesRemaining(1);
         listOfGames.add(firstGame);
 
         when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
@@ -112,7 +114,7 @@ class GameManagerServiceImplTest {
 
         verify(mockGamesRepository, times(1)).getListOfGames();
 
-        assertEquals(1, firstGame.getMovesRemaining());
+        assertEquals(updatedFirstGame.getMovesRemaining(), gameManagerServiceImpl.getMovesRemaining(1));
 
     }
 
