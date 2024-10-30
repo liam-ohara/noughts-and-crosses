@@ -1,6 +1,7 @@
 package liamohara.controller;
 
 import liamohara.exception.PlayerNameTakenException;
+import liamohara.exception.PlayerRoleTakenException;
 import liamohara.service.PlayerManagerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -107,6 +108,20 @@ class PlayerControllerTest {
         doThrow(PlayerNameTakenException.class).when(mockPlayerManagerServiceImpl).addNewPlayer(duplicatePlayerName, isNought, isCross);
 
         assertThrowsExactly(PlayerNameTakenException.class, () ->  playerController.addNewPlayer(duplicatePlayerName, isNought, isCross));
+
+    }
+
+    @Test
+    @DisplayName("Throws PlayerRoleTakenException when player role has already been assigned.")
+    void testAddNewPlayer_WhenPlayerNameIsTaken() {
+
+        String playerName = "Player Two";
+        boolean isNought = true;
+        boolean isCross = false;
+
+        doThrow(PlayerRoleTakenException.class).when(mockPlayerManagerServiceImpl).addNewPlayer(playerName, isNought, isCross);
+
+        assertThrowsExactly(PlayerRoleTakenException.class, () ->  playerController.addNewPlayer(playerName, isNought, isCross));
 
     }
 }
