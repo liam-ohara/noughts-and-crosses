@@ -1,5 +1,6 @@
 package liamohara.controller;
 
+import liamohara.exception.PlayerNameTakenException;
 import liamohara.service.PlayerManagerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -96,4 +97,16 @@ class PlayerControllerTest {
     }
 
     @Test
+    @DisplayName("Throws PlayerNameTakenException when player name is not unique.")
+    void testAddNewPlayer_WhenPlayerNameIsNotUnique() {
+
+        String duplicatePlayerName = "Duplicate Player";
+        boolean isNought = true;
+        boolean isCross = false;
+
+        doThrow(PlayerNameTakenException.class).when(mockPlayerManagerServiceImpl).addNewPlayer(duplicatePlayerName, isNought, isCross);
+
+        assertThrowsExactly(PlayerNameTakenException.class, () ->  playerController.addNewPlayer(duplicatePlayerName, isNought, isCross));
+
+    }
 }
