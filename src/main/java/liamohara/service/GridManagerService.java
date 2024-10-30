@@ -4,7 +4,7 @@ public interface GridManagerService {
 
     void addNewGrid(int gameId);
 
-    String getGrid();
+    String[][] getGrid();
 
-    void updateGrid(int row, int column, boolean isNought);
+    void updateGrid(int gameId, int row, int column, boolean isNought);
 }
