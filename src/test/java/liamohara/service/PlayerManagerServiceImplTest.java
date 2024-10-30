@@ -185,4 +185,21 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Returns 1 when player has won a game")
+    void testGetPlayerScore_WhenPlayerHasWonOneGame() {
+
+        playerOne.setPlayerScore(1);
+        listOfPlayers.add(playerOne);
+        int expectedPlayerScore = 1;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        int result = playerManagerServiceImpl.getPlayerScore(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedPlayerScore, result);
+
+    }
+
 }
