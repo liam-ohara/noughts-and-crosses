@@ -13,8 +13,9 @@ public class GridController {
 
     }
 
-    public String getGrid() {
-        return "";
+    public String[][] getGrid(int gameId) {
+        return gridManagerService.getGrid(gameId);
+
     }
 
     public void updateGrid(int row, int column, Player player) {}

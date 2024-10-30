@@ -28,13 +28,30 @@ class GridControllerTest {
 
     @Test
     @DisplayName("Call addNewGrid method in Service layer once")
-    void addNewGrid() {
+    void testAddNewGrid() {
 
         int gameId = 1;
 
         gridController.addNewGrid(gameId);
 
         verify(mockGridManagerServiceImpl, times(1)).addNewGrid(gameId);
+
+    }
+
+    @Test
+    @DisplayName("Return null two-dimension array of size 3x3 when no players have moved")
+    void testGetGrid_WhenNoPlayersHaveMoved() {
+
+        int gameId = 1;
+        String[][] grid = new String[3][3];
+
+        when(mockGridManagerServiceImpl.getGrid(gameId)).thenReturn(grid);
+
+        String[][] result = gridController.getGrid(gameId);
+
+        verify(mockGridManagerServiceImpl, times(1)).getGrid(gameId);
+
+        assertNull(result[0][0]);
 
     }
 }
