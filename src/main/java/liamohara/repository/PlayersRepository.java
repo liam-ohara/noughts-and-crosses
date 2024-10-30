@@ -26,4 +26,14 @@ public final class PlayersRepository {
     public void addNewPlayer (Player newPlayer) {
         listOfPlayers.add(newPlayer);
     }
+
+    public void updatePlayer(Player player) {
+        for (int i = 0; i < listOfPlayers.size(); i++) {
+
+            if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(player.getPlayerName())) {
+                listOfPlayers.set(i, player);
+
+            }
+        }
+    }
 }
