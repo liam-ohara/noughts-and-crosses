@@ -8,7 +8,7 @@ public class GridManagerServiceImpl implements GridManagerService {
     }
 
     @Override
-    public String[][] getGrid() {
+    public String[][] getGrid(int gameId) {
         return new String[3][3];
     }
 
