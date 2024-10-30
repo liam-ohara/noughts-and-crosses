@@ -20,7 +20,7 @@ public class PlayerController {
     }
 
     public int getPlayerScore(String playerName) {
-        return 0;
+        return playerManagerService.getPlayerScore(playerName);
     }
 
     public void updatePlayerScore(String playerName) {}

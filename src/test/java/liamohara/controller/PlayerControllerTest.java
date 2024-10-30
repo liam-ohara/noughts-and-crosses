@@ -52,4 +52,20 @@ class PlayerControllerTest {
         assertEquals(expectedMovesRemaining, result);
 
     }
+
+    @Test
+    @DisplayName("Returns 1 when player has won one game")
+    void testGetPlayerScore_WhenPlayerHasWonOneGame() {
+
+        String playerName = "Player One";
+        int expectedPlayerScore = 1;
+
+        when(mockPlayerManagerServiceImpl.getPlayerScore(playerName)).thenReturn(1);
+
+        int result = playerController.getPlayerScore(playerName);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).getPlayerScore(playerName);
+        assertEquals(expectedPlayerScore, result);
+
+    }
 }
