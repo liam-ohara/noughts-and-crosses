@@ -65,7 +65,6 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     @Override
     public int getPlayerMovesRemaining(String playerName) {
 
-
         List<Player> listOfPlayers = playersRepository.getListOfPlayers();
 
         if (!(listOfPlayers.isEmpty())) {

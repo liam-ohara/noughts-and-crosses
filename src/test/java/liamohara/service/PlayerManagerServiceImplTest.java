@@ -151,4 +151,21 @@ class PlayerManagerServiceImplTest {
         assertEquals(expectedMovesRemaining, result);
 
     }
+
+    @Test
+    @DisplayName("Returns 0 when player has no moves remaining")
+    void testGetPlayerMovesRemaining_WhenPlayerHasNoMovesRemaining() {
+
+        playerOne.setMovesRemaining(0);
+        listOfPlayers.add(playerOne);
+        int expectedMovesRemaining = 0;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        int result = playerManagerServiceImpl.getPlayerMovesRemaining(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedMovesRemaining, result);
+
+    }
 }
