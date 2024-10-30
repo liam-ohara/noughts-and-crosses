@@ -44,9 +44,9 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
         List<Player> listOfPlayers = playersRepository.getListOfPlayers();
         Player updatedPlayer;
         int movesRemaining;
-        
+
         if (!(listOfPlayers.isEmpty())) {
-            
+
             for (int i = 0; i < listOfPlayers.size(); i++) {
                 if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(playerName)) {
                     updatedPlayer = listOfPlayers.get(i);
@@ -100,5 +100,21 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     @Override
     public void updatePlayerScore(String playerName) {
 
+        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+        Player updatedPlayer;
+        int playerScore;
+
+        if (!(listOfPlayers.isEmpty())) {
+
+            for (int i = 0; i < listOfPlayers.size(); i++) {
+                if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(playerName)) {
+                    updatedPlayer = listOfPlayers.get(i);
+                    playerScore = updatedPlayer.getPlayerScore();
+                    updatedPlayer.setPlayerScore(playerScore + 1);
+                    playersRepository.updatePlayer(updatedPlayer);
+
+                }
+            }
+        }
     }
 }

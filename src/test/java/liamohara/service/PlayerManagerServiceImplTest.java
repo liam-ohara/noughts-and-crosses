@@ -235,4 +235,22 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Calls getListOfPlayers and updatePlayer methods in PlayersRepository once each when player has won a game")
+    void testUpdatePlayerScore_WhenPlayerHasWonAGame() {
+
+        playerOne.setMovesRemaining(0);
+        listOfPlayers.add(playerOne);
+        int expectedPlayerScore = 1;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        playerManagerServiceImpl.updatePlayerScore(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(1)).updatePlayer(Mockito.any());
+        assertEquals(expectedPlayerScore, playerManagerServiceImpl.getPlayerScore(playerOne.getPlayerName()));
+
+    }
+
 }
