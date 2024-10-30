@@ -1,5 +1,7 @@
 package liamohara.service;
 
+import liamohara.exception.PlayerNameTakenException;
+import liamohara.exception.PlayerRoleTakenException;
 import liamohara.model.Player;
 import liamohara.repository.PlayersRepository;
 
@@ -13,11 +15,27 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     public void addNewPlayer(String playerName, boolean isNought, boolean isCross) {
 
         List<Player> listOfPlayers = playersRepository.getListOfPlayers();
-
         Player newPlayer = new Player(playerName, isNought, isCross);
 
-        playersRepository.addNewPlayer(newPlayer);
+        if (listOfPlayers.isEmpty()) {
+            playersRepository.addNewPlayer(newPlayer);
 
+        } else {
+            for (int i = 0; i < listOfPlayers.size(); i++) {
+                if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(newPlayer.getPlayerName())) {
+                    throw new PlayerNameTakenException(newPlayer.getPlayerName());
+
+                } else {
+                    if (newPlayer.isCross() == listOfPlayers.get(i).isCross() || newPlayer.isNought() == listOfPlayers.get(i).isNought()) {
+                        throw new PlayerRoleTakenException(listOfPlayers.get(i).getPlayerName());
+
+                    } else {
+                        playersRepository.addNewPlayer(newPlayer);
+
+                    }
+                }
+            }
+        }
     }
 
     @Override
