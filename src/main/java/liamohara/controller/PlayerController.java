@@ -27,4 +27,6 @@ public class PlayerController {
         playerManagerService.updatePlayerScore(playerName);
     }
 
+    public void addNewPlayer(String name, boolean isNought, boolean isCross) {}
+
 }
