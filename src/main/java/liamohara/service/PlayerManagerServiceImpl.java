@@ -81,7 +81,20 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
     @Override
     public int getPlayerScore(String playerName) {
+
+        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+
+        if (!(listOfPlayers.isEmpty())) {
+
+            for (int i = 0; i < listOfPlayers.size(); i++) {
+                if (listOfPlayers.get(i).getPlayerName().equalsIgnoreCase(playerName)) {
+                    return (listOfPlayers.get(i).getPlayerScore());
+
+                }
+            }
+        }
         return 0;
+
     }
 
     @Override

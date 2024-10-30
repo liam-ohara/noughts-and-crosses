@@ -168,4 +168,21 @@ class PlayerManagerServiceImplTest {
         assertEquals(expectedMovesRemaining, result);
 
     }
+
+    @Test
+    @DisplayName("Returns 0 when player has not won a game")
+    void testGetPlayerScore_WhenPlayerHasNotWonAGame() {
+
+        listOfPlayers.add(playerOne);
+        int expectedPlayerScore = 0;
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        int result = playerManagerServiceImpl.getPlayerScore(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedPlayerScore, result);
+
+    }
+
 }
