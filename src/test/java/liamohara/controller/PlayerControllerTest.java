@@ -80,4 +80,20 @@ class PlayerControllerTest {
         verify(mockPlayerManagerServiceImpl, times(1)).updatePlayerScore(playerName);
 
     }
+
+    @Test
+    @DisplayName("Calls addNewPlayer method in Service layer once when name is unique")
+    void testAddNewPlayer_WhenPlayerNameIsUnique() {
+
+        String playerName = "Player One";
+        boolean isNought = true;
+        boolean isCross = false;
+
+        playerController.addNewPlayer(playerName, isNought, isCross);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).addNewPlayer(playerName, isNought, isCross);
+
+    }
+
+    @Test
 }
