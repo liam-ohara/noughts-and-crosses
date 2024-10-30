@@ -23,6 +23,8 @@ public class PlayerController {
         return playerManagerService.getPlayerScore(playerName);
     }
 
-    public void updatePlayerScore(String playerName) {}
+    public void updatePlayerScore(String playerName) {
+        playerManagerService.updatePlayerScore(playerName);
+    }
 
 }

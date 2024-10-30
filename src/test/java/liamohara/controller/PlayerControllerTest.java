@@ -68,4 +68,16 @@ class PlayerControllerTest {
         assertEquals(expectedPlayerScore, result);
 
     }
+
+    @Test
+    @DisplayName("Calls updatePlayerScore method in Service layer once.")
+    void testUpdatePlayerScore() {
+
+        String playerName = "Player One";
+
+        playerController.updatePlayerScore(playerName);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).updatePlayerScore(playerName);
+
+    }
 }
