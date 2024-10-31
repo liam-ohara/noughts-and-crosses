@@ -278,4 +278,19 @@ class PlayerManagerServiceImplTest {
         assertEquals(expectedPlayerScore, playerManagerServiceImpl.getPlayerScore(playerOne.getPlayerName()));
 
     }
+
+    @Test
+    @DisplayName("Returns ArrayList of player names when PlayersRepository contains players")
+    void testGetPlayerNames_WhenPlayersRepositoryContainsPlayers() {
+
+        listOfPlayers.add(playerOne);
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        ArrayList<String> result = playerManagerServiceImpl.getPlayerNames();
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(playerOne.getPlayerName(), result.getFirst());
+
+    }
 }
