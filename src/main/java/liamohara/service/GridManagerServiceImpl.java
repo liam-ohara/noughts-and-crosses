@@ -45,10 +45,9 @@ public class GridManagerServiceImpl implements GridManagerService {
 
         List<Grid> listOfGrids = new ArrayList<>();
 
-        try {
-            listOfGrids = gridsRepository.getListOfGrids();
+        listOfGrids = gridsRepository.getListOfGrids();
 
-        } catch (NullPointerException e) {
+        if (listOfGrids.isEmpty()) {
             throw new NoGridsException("No grids created yet.");
 
         }
