@@ -118,10 +118,21 @@ class PlayerControllerTest {
         String playerName = "Player Two";
         boolean isNought = true;
         boolean isCross = false;
+        String actualMessage = "";
 
-        doThrow(PlayerRoleTakenException.class).when(mockPlayerManagerServiceImpl).addNewPlayer(playerName, isNought, isCross);
+        PlayerRoleTakenException pre = new PlayerRoleTakenException("Nought role is taken by Player One. Player Two has thus been assigned the role of cross.");
+
+        doThrow(pre).when(mockPlayerManagerServiceImpl).addNewPlayer(playerName, isNought, isCross);
+
+        try {
+            playerController.addNewPlayer(playerName, isNought, isCross);
+        } catch (PlayerRoleTakenException e) {
+            actualMessage = e.getMessage();
+        }
 
         assertThrowsExactly(PlayerRoleTakenException.class, () ->  playerController.addNewPlayer(playerName, isNought, isCross));
+        verify(mockPlayerManagerServiceImpl, times(2)).addNewPlayer(playerName, isNought, isCross);
+        assertEquals(pre.getMessage(), actualMessage);
 
     }
 }
