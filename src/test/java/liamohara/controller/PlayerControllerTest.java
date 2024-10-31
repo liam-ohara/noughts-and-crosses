@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -135,4 +137,21 @@ class PlayerControllerTest {
         assertEquals(pre.getMessage(), actualMessage);
 
     }
+
+    @Test
+    @DisplayName("Returns ArrayList of player names when called with PlayersRepository contains players.")
+    void testGetPlayerNames_WhenPlayersRepositoryContainsPlayers() {
+
+        ArrayList<String> listOfPlayerNames = new ArrayList<>();
+        String playerName = "Player One";
+        listOfPlayerNames.add(playerName);
+
+        when(mockPlayerManagerServiceImpl.getPlayerNames()).thenReturn(listOfPlayerNames);
+
+        ArrayList<String> result = playerController.getPlayerNames();
+
+        assertEquals("Player One", result.getFirst());
+
+    }
+
 }

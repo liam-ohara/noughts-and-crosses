@@ -4,7 +4,9 @@ import liamohara.model.Player;
 import liamohara.service.PlayerManagerService;
 import liamohara.service.PlayerManagerServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class PlayerController {
 
@@ -29,6 +31,10 @@ public class PlayerController {
 
     public void addNewPlayer(String playerName, boolean isNought, boolean isCross) {
         playerManagerService.addNewPlayer(playerName, isNought, isCross);
+    }
+
+    public ArrayList<String> getPlayerNames(){
+        return playerManagerService.getPlayerNames();
     }
 
 }
