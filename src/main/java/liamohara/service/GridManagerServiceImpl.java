@@ -1,5 +1,7 @@
 package liamohara.service;
 
+import liamohara.model.Player;
+
 public class GridManagerServiceImpl implements GridManagerService {
 
     @Override
@@ -13,7 +15,7 @@ public class GridManagerServiceImpl implements GridManagerService {
     }
 
     @Override
-    public void updateGrid(int gameId, int row, int column, boolean isNought) {
+    public void updateGrid(int gameId, int row, int column, Player player) {
 
     }
 }
