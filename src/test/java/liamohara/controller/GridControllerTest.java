@@ -1,5 +1,6 @@
 package liamohara.controller;
 
+import liamohara.exception.IllegalMoveException;
 import liamohara.model.Player;
 import liamohara.service.GameManagerServiceImpl;
 import liamohara.service.GridManagerServiceImpl;
@@ -90,6 +91,22 @@ class GridControllerTest {
         gridController.updateGrid(gameId, rowMove, columnMove, playerTwo);
 
         verify(mockGridManagerServiceImpl, times(1)).updateGrid(gameId, rowMove, columnMove, playerTwo);
+
+    }
+
+    @Test
+    @DisplayName("Throw IllegalMoveException when player makes an illegal move")
+    void testUpdateGrid_WhenPlayerMakesIllegalMove() {
+
+        int gameId = 1;
+        String[][] grid = new String[3][3];
+        grid[0][0] = "O";
+        int rowMove = 0;
+        int columnMove = 0;
+
+        doThrow(IllegalMoveException.class).when(mockGridManagerServiceImpl).updateGrid(gameId, rowMove, columnMove, playerOne);
+
+        assertThrowsExactly(IllegalMoveException.class, () -> gridController.updateGrid(gameId, rowMove, columnMove, playerOne));
 
     }
 
