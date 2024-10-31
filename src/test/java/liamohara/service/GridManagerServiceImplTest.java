@@ -1,5 +1,6 @@
 package liamohara.service;
 
+import liamohara.exception.GameIdAlreadyAssignedException;
 import liamohara.model.Game;
 import liamohara.model.Grid;
 import liamohara.repository.GridsRepository;
@@ -34,7 +35,6 @@ class GridManagerServiceImplTest {
 
     Game gameOne = new Game(1);
     Grid gridOne = new Grid(gameOne.getId());
-    Grid duplicateGrid = new Grid(gameOne.getId());
     List<Grid> listOfGrids = new ArrayList<>();
 
     @Test
@@ -50,6 +50,23 @@ class GridManagerServiceImplTest {
 
         verify(mockGridsRepository, times(1)).getListOfGrids();
         verify(mockGridsRepository, times(1)).addNewGrid(Mockito.any());
+
+    }
+
+    @Test
+    @DisplayName("Throws GameIdAlreadyAssignedException when game ID has already been assigned to another grid")
+    void testAddNewGrid_WhenGameIDHasAlreadyBeenAssigned() {
+
+        String[][] gridData = new String[3][3];
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        assertThrowsExactly(GameIdAlreadyAssignedException.class, () -> gridManagerServiceImpl.addNewGrid(gameOne.getId()));
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        verify(mockGridsRepository, times(0)).addNewGrid(Mockito.any());
 
     }
 

@@ -1,5 +1,6 @@
 package liamohara.service;
 
+import liamohara.exception.GameIdAlreadyAssignedException;
 import liamohara.model.Grid;
 import liamohara.model.Player;
 import liamohara.repository.GridsRepository;
@@ -20,8 +21,21 @@ public class GridManagerServiceImpl implements GridManagerService {
 
         listOfGrids = gridsRepository.getListOfGrids();
 
-        gridsRepository.addNewGrid(newGrid);
+        if (listOfGrids.isEmpty()) {
+            gridsRepository.addNewGrid(newGrid);
 
+        } else {
+
+            for (int i = 0; i < listOfGrids.size(); i++) {
+                if (listOfGrids.get(i).getGameId() == gameId) {
+                    throw new GameIdAlreadyAssignedException(Integer.toString(gameId));
+
+                } else {
+                    gridsRepository.addNewGrid(newGrid);
+
+                }
+            }
+        }
     }
 
     @Override
