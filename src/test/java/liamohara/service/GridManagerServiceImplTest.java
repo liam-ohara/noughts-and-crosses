@@ -116,6 +116,23 @@ class GridManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Returns two dimensional array of size 3x3 null except for row 0 column 0 which contains X when one player has moved")
+    void testGetGrid_WhenOnePlayerHasMoved() {
+
+        String[][] gridData = new String[3][3];
+        gridData[0][0] = "X";
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        String[][] result = gridManagerServiceImpl.getGrid(gameOne.getId());
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        assertEquals("X", result[0][0]);
+
+    }
 
 
 
