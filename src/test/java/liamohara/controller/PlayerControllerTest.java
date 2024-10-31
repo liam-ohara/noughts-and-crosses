@@ -139,7 +139,7 @@ class PlayerControllerTest {
     }
 
     @Test
-    @DisplayName("Returns ArrayList of player names when called with PlayersRepository contains players.")
+    @DisplayName("Returns ArrayList of player names when PlayersRepository contains players.")
     void testGetPlayerNames_WhenPlayersRepositoryContainsPlayers() {
 
         ArrayList<String> listOfPlayerNames = new ArrayList<>();
@@ -154,4 +154,17 @@ class PlayerControllerTest {
 
     }
 
+    @Test
+    @DisplayName("Returns empty ArrayList when PlayersRepository is empty")
+    void testGetPlayerNames_WhenPlayersRepositoryIsEmpty() {
+
+        ArrayList<String> emptyList = new ArrayList<>();
+
+        when(mockPlayerManagerServiceImpl.getPlayerNames()).thenReturn(emptyList);
+
+        ArrayList<String> result = playerController.getPlayerNames();
+
+        assertTrue(result.isEmpty());
+
+    }
 }
