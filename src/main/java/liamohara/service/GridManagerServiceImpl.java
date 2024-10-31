@@ -77,6 +77,11 @@ public class GridManagerServiceImpl implements GridManagerService {
         String playerSymbol;
         String[][] updatedGridData;
 
+        if (listOfGrids.isEmpty()) {
+            throw new NoGridsException("No grids created yet.");
+
+        }
+
         for (int i = 0; i < listOfGrids.size(); i++) {
             if (listOfGrids.get(i).getGameId() == gameId) {
                 updatedGrid = listOfGrids.get(i);
@@ -99,4 +104,6 @@ public class GridManagerServiceImpl implements GridManagerService {
         gridsRepository.updateGrid(updatedGrid);
 
     }
+
+
 }

@@ -155,6 +155,17 @@ class GridManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Throw NoGridsException when method GridsRespository is empty")
+    void testUpdateGrid_WhenGridsRespositoryIsEmpty() {
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        assertThrowsExactly(NoGridsException.class, () -> gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne));
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+
+    }
+
 
 
 }
