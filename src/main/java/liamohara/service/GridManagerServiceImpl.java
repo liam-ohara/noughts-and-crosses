@@ -2,6 +2,7 @@ package liamohara.service;
 
 import liamohara.exception.GameIdAlreadyAssignedException;
 import liamohara.exception.GridNotFoundException;
+import liamohara.exception.IllegalMoveException;
 import liamohara.exception.NoGridsException;
 import liamohara.model.Grid;
 import liamohara.model.Player;
@@ -101,11 +102,17 @@ public class GridManagerServiceImpl implements GridManagerService {
         }
 
         updatedGridData = updatedGrid.getGrid();
-        updatedGridData[row][column] = playerSymbol;
-        updatedGrid.setGrid(updatedGridData);
 
-        gridsRepository.updateGrid(updatedGrid);
+        if (updatedGridData[row][column].isEmpty()) {
+            updatedGridData[row][column] = playerSymbol;
+            updatedGrid.setGrid(updatedGridData);
 
+            gridsRepository.updateGrid(updatedGrid);
+
+        } else {
+            throw new IllegalMoveException("Position: row " + Integer.toString(row) + "by column " + Integer.toString(column));
+
+        }
     }
 
 

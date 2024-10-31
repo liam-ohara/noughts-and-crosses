@@ -2,6 +2,7 @@ package liamohara.service;
 
 import liamohara.exception.GameIdAlreadyAssignedException;
 import liamohara.exception.GridNotFoundException;
+import liamohara.exception.IllegalMoveException;
 import liamohara.exception.NoGridsException;
 import liamohara.model.Game;
 import liamohara.model.Grid;
@@ -16,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -178,6 +180,23 @@ class GridManagerServiceImplTest {
 
         assertThrowsExactly(GridNotFoundException.class, () -> gridManagerServiceImpl.updateGrid(2, 0, 0, playerOne));
         verify(mockGridsRepository, times(1)).getListOfGrids();
+
+    }
+
+    @Test
+    @DisplayName("Throw IllegalMoveException when player makes an illegal move")
+    void testUpdateGrid_WhenPlayerMakesIllegalMove() {
+
+        String[][] gridData = new String[3][3];
+        gridData[0][0] = "X";
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        assertThrowsExactly(IllegalMoveException.class, () -> gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne));
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        verify(mockGridsRepository, times(0)).updateGrid(Mockito.any());
 
     }
 
