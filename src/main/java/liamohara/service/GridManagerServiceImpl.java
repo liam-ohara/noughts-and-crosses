@@ -1,6 +1,7 @@
 package liamohara.service;
 
 import liamohara.exception.GameIdAlreadyAssignedException;
+import liamohara.exception.GridNotFoundException;
 import liamohara.exception.NoGridsException;
 import liamohara.model.Grid;
 import liamohara.model.Player;
@@ -57,6 +58,9 @@ public class GridManagerServiceImpl implements GridManagerService {
         for (int i = 0; i < listOfGrids.size(); i++) {
             if (listOfGrids.get(i).getGameId() == gameId) {
                 grid = listOfGrids.get(i);
+
+            } else {
+                throw new GridNotFoundException(Integer.toString(gameId));
 
             }
         }

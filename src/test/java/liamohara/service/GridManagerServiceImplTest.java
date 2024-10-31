@@ -101,6 +101,21 @@ class GridManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Throw GridNotFoundException when grid with matching game ID not found.")
+    void testGetGrid_WhenGridNotFound() {
+
+        String[][] gridData = new String[3][3];
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        assertThrowsExactly(GridNotFoundException.class, () -> gridManagerServiceImpl.getGrid(2));
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+
+    }
+
 
 
 
