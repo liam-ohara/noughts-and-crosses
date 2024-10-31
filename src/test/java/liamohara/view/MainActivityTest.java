@@ -51,5 +51,17 @@ class MainActivityTest {
         assertEquals("Test line one\nTest line two\n", outContent.toString());
     }
 
+    @Test
+    @DisplayName("Nothing printed to console when passed an empty ArrayList")
+    void testPrintMessage_WhenPassedEmptyArrayList() {
+
+        ArrayList<String> messages = new ArrayList<>();
+
+        mainActivity.printMessages(messages);
+
+        assertEquals("", outContent.toString());
+
+    }
+
 
 }
