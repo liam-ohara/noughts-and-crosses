@@ -72,4 +72,17 @@ class GlobalExceptionHandlerTest {
 
     }
 
+    @Test
+    void testHandlePlayerRoleTakenException() {
+
+        String preMessage = "Nought role is taken by Player One. Player Two has thus been assigned the role of cross.";
+        PlayerRoleTakenException pre = new PlayerRoleTakenException(preMessage);
+        String expectedResult = "Nought role is taken by Player One. Player Two has thus been assigned the role of cross.";
+
+        String result = globalExceptionHandler.handlePlayerRoleTakenException(pre);
+
+        assertEquals(expectedResult, result);
+
+    }
+
 }

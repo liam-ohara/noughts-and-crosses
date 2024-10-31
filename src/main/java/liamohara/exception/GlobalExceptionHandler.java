@@ -26,4 +26,9 @@ public class GlobalExceptionHandler {
 
         return "The player name \"" + pe.getMessage() + "\" is already taken.";
     }
+
+    public String handlePlayerRoleTakenException (PlayerRoleTakenException pre) {
+
+        return pre.getMessage();
+    }
 }
