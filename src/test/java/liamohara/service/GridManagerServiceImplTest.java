@@ -1,6 +1,7 @@
 package liamohara.service;
 
 import liamohara.exception.GameIdAlreadyAssignedException;
+import liamohara.exception.NoGridsException;
 import liamohara.model.Game;
 import liamohara.model.Grid;
 import liamohara.repository.GridsRepository;
@@ -88,6 +89,15 @@ class GridManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Throw NoGridsException when method GridsRespository is empty")
+    void testGetGrid_WhenGridsRespositoryIsEmpty() {
 
+        doThrow(NoGridsException.class).when(mockGridsRepository).getListOfGrids();
+
+        assertThrowsExactly(NoGridsException.class, () -> gridManagerServiceImpl.getGrid(1));
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+
+    }
 
 }

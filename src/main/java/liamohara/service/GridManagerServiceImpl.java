@@ -1,6 +1,7 @@
 package liamohara.service;
 
 import liamohara.exception.GameIdAlreadyAssignedException;
+import liamohara.exception.NoGridsException;
 import liamohara.model.Grid;
 import liamohara.model.Player;
 import liamohara.repository.GridsRepository;
@@ -42,7 +43,16 @@ public class GridManagerServiceImpl implements GridManagerService {
     @Override
     public String[][] getGrid(int gameId) {
 
-        List<Grid> listOfGrids = gridsRepository.getListOfGrids();
+        List<Grid> listOfGrids = new ArrayList<>();
+
+        try {
+            listOfGrids = gridsRepository.getListOfGrids();
+
+        } catch (NullPointerException e) {
+            throw new NoGridsException("No grids created yet.");
+
+        }
+
         Grid grid = null;
 
         for (int i = 0; i < listOfGrids.size(); i++) {
