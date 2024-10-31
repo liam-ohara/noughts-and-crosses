@@ -70,4 +70,24 @@ class GridManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Returns null two-dimensional array of size 3x3 when no players have moved")
+    void testGetGrid_WhenNoPlayersHaveMoved() {
+
+        String[][] gridData = new String[3][3];
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+        int expectedGridRowSize = 3;
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        String[][] result = gridManagerServiceImpl.getGrid(gameOne.getId());
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        assertEquals(expectedGridRowSize, result.length);
+
+    }
+
+
+
 }

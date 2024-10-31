@@ -5,6 +5,7 @@ import liamohara.model.Grid;
 import liamohara.model.Player;
 import liamohara.repository.GridsRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GridManagerServiceImpl implements GridManagerService {
@@ -40,7 +41,18 @@ public class GridManagerServiceImpl implements GridManagerService {
 
     @Override
     public String[][] getGrid(int gameId) {
-        return new String[3][3];
+
+        List<Grid> listOfGrids = gridsRepository.getListOfGrids();
+        Grid grid = null;
+
+        for (int i = 0; i < listOfGrids.size(); i++) {
+            if (listOfGrids.get(i).getGameId() == gameId) {
+                grid = listOfGrids.get(i);
+
+            }
+        }
+        return grid.getGrid();
+
     }
 
     @Override
