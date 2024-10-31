@@ -18,5 +18,26 @@ public class MainActivity {
 
     }
 
+    protected void printMessages (ArrayList<String> messages) {
+
+        StringBuilder string = new StringBuilder();
+
+        for (int i = 0; i < messages.size(); i++) {
+            if (i < messages.size() - 1) {
+                string.append(messages.get(i)).append("\n");
+
+            } else {
+                string.append(messages.get(i));
+
+            }
+        }
+        System.out.println(string);
+
+    }
+
+    protected void setup(){}
+
+
+
 
 }
