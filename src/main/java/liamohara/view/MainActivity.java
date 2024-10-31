@@ -43,6 +43,8 @@ public class MainActivity {
 
     protected void setup(){}
 
+    protected void newPlayer(String playerName, String playerRole){}
+
 
 
 
