@@ -293,4 +293,17 @@ class PlayerManagerServiceImplTest {
         assertEquals(playerOne.getPlayerName(), result.getFirst());
 
     }
+
+    @Test
+    @DisplayName("Returns empty ArrayList when PlayersRepository is empty")
+    void testGetPlayerName_WhenPlayersRepositoryIsEmpty() {
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(null);
+
+        ArrayList<String> result = playerManagerServiceImpl.getPlayerNames();
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertTrue(result.isEmpty());
+
+    }
 }

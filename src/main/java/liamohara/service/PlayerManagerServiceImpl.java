@@ -141,13 +141,20 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     @Override
     public ArrayList<String> getPlayerNames() {
 
-        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
         ArrayList<String> listOfPlayerNames = new ArrayList<>();
 
-        for (Player p : listOfPlayers) {
-            listOfPlayerNames.add(p.getPlayerName());
-        }
-        return listOfPlayerNames;
+        try {
+            List<Player> listOfPlayers = playersRepository.getListOfPlayers();
 
+            for (Player p : listOfPlayers) {
+                listOfPlayerNames.add(p.getPlayerName());
+
+            }
+            return listOfPlayerNames;
+
+        } catch (NullPointerException e) {
+            return listOfPlayerNames;
+
+        }
     }
 }
