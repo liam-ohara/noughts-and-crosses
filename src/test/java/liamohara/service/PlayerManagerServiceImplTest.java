@@ -72,14 +72,22 @@ class PlayerManagerServiceImplTest {
     void testAddNewPlayer_WhenPlayerRoleIsTaken() {
 
         listOfPlayers.add(playerOne);
+        String expectedMessage = "Nought role is taken by Player One. Player Two has thus been assigned the role of cross.";
+        String actualMessage = "";
 
         when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
-        doThrow(PlayerRoleTakenException.class).when(mockPlayersRepository).addNewPlayer(duplicateRole);
 
-        assertThrowsExactly(PlayerRoleTakenException.class, () ->  playerManagerServiceImpl.addNewPlayer(duplicateRole.getPlayerName(), duplicateRole.isNought(), duplicateRole.isCross()));
+        try {
+            playerManagerServiceImpl.addNewPlayer(duplicateRole.getPlayerName(), duplicateRole.isNought(), duplicateRole.isCross());
+        } catch (PlayerRoleTakenException pre) {
+            actualMessage = pre.getMessage();
+            assertThrowsExactly(PlayerRoleTakenException.class, () ->  playerManagerServiceImpl.addNewPlayer(duplicateRole.getPlayerName(), duplicateRole.isNought(), duplicateRole.isCross()));
+        }
 
-        verify(mockPlayersRepository, times(1)).getListOfPlayers();
-        verify(mockPlayersRepository, times(0)).addNewPlayer(Mockito.any());
+        verify(mockPlayersRepository, times(2)).getListOfPlayers();
+        verify(mockPlayersRepository, times(2)).addNewPlayer(Mockito.any());
+        assertEquals(expectedMessage, actualMessage);
+
 
     }
 

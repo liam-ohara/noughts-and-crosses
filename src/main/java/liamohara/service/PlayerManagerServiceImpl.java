@@ -16,6 +16,8 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
         List<Player> listOfPlayers = playersRepository.getListOfPlayers();
         Player newPlayer = new Player(playerName, isNought, isCross);
+        String newPlayerRole;
+        String newPlayerRoleReassigned;
 
         if (listOfPlayers.isEmpty()) {
             playersRepository.addNewPlayer(newPlayer);
@@ -27,7 +29,21 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
                 } else {
                     if (newPlayer.isCross() == listOfPlayers.get(i).isCross() || newPlayer.isNought() == listOfPlayers.get(i).isNought()) {
-                        throw new PlayerRoleTakenException(listOfPlayers.get(i).getPlayerName());
+
+                        if (newPlayer.isNought()) {
+                            newPlayerRole = "Nought";
+                            newPlayerRoleReassigned = "cross";
+
+                        } else {
+                            newPlayerRole = "Cross";
+                            newPlayerRoleReassigned = "nought";
+
+                        }
+
+                        newPlayer.setNought(!newPlayer.isNought());
+                        newPlayer.setCross(!newPlayer.isCross());
+                        playersRepository.addNewPlayer(newPlayer);
+                        throw new PlayerRoleTakenException(newPlayerRole + " role is taken by " + listOfPlayers.get(i).getPlayerName() + ". " + newPlayer.getPlayerName() + " has thus been assigned the role of " + newPlayerRoleReassigned + ".");
 
                     } else {
                         playersRepository.addNewPlayer(newPlayer);
