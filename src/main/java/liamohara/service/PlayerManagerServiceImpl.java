@@ -5,6 +5,7 @@ import liamohara.exception.PlayerRoleTakenException;
 import liamohara.model.Player;
 import liamohara.repository.PlayersRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerManagerServiceImpl implements PlayerManagerService {
@@ -135,5 +136,11 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
                 }
             }
         }
+    }
+
+    @Override
+    public ArrayList<String> getPlayerNames() {
+
+        return new ArrayList<>();
     }
 }

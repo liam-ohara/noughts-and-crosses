@@ -1,5 +1,7 @@
 package liamohara.service;
 
+import java.util.ArrayList;
+
 public interface PlayerManagerService {
 
     void addNewPlayer(String playerName, boolean isNought, boolean isCross);
@@ -11,5 +13,7 @@ public interface PlayerManagerService {
     int getPlayerScore(String playerName);
 
     void updatePlayerScore(String playerName);
+
+    ArrayList<String> getPlayerNames();
 
 }
