@@ -21,5 +21,34 @@ class GlobalExceptionHandlerTest {
 
     }
 
+    @Test
+    void testHandleGridNotFoundException() {
+
+        String gneMessage = "1";
+        GridNotFoundException gne = new GridNotFoundException("1");
+        String expectedResult = "No grid with game ID: 1 was found.";
+
+        String result = globalExceptionHandler.handleGridNotFoundException(gne);
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void testHandleIllegalMoveException() {
+
+        String ieMessage = "Position: row 0 by column 0";
+        IllegalMoveException ie = new IllegalMoveException(ieMessage);
+        String expectedResult = "Illegal Move at Position: row 0 by column 0";
+
+        String result = globalExceptionHandler.handleIllegalMoveException(ie);
+
+        assertEquals(expectedResult, result);
+
+    }
+
+
+
+
 
 }
