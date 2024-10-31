@@ -71,5 +71,32 @@ public class GridManagerServiceImpl implements GridManagerService {
     @Override
     public void updateGrid(int gameId, int row, int column, Player player) {
 
+        List<Grid> listOfGrids = gridsRepository.getListOfGrids();
+
+        Grid updatedGrid = null;
+        String playerSymbol;
+        String[][] updatedGridData;
+
+        for (int i = 0; i < listOfGrids.size(); i++) {
+            if (listOfGrids.get(i).getGameId() == gameId) {
+                updatedGrid = listOfGrids.get(i);
+
+            }
+        }
+
+        if (player.isNought()) {
+            playerSymbol = "O";
+
+        } else {
+            playerSymbol = "X";
+
+        }
+
+        updatedGridData = updatedGrid.getGrid();
+        updatedGridData[row][column] = playerSymbol;
+        updatedGrid.setGrid(updatedGridData);
+
+        gridsRepository.updateGrid(updatedGrid);
+
     }
 }

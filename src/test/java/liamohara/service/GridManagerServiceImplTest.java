@@ -5,6 +5,7 @@ import liamohara.exception.GridNotFoundException;
 import liamohara.exception.NoGridsException;
 import liamohara.model.Game;
 import liamohara.model.Grid;
+import liamohara.model.Player;
 import liamohara.repository.GridsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +39,7 @@ class GridManagerServiceImplTest {
     Game gameOne = new Game(1);
     Grid gridOne = new Grid(gameOne.getId());
     List<Grid> listOfGrids = new ArrayList<>();
+    Player playerOne = new Player("Player One", false, true);
 
     @Test
     @DisplayName("Calls getListOfGrids and addNewGrid methods in GridsRepository once each when repository is empty.")
@@ -131,6 +133,25 @@ class GridManagerServiceImplTest {
 
         verify(mockGridsRepository, times(1)).getListOfGrids();
         assertEquals("X", result[0][0]);
+
+    }
+
+    @Test
+    @DisplayName("Calls updateGrid method in GridsRepository once when player makes valid move")
+    void testUpdateGrid_WhenPlayerMakesValidMove() {
+
+        String[][] gridData = new String[3][3];
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne);
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        verify(mockGridsRepository, times(1)).updateGrid(Mockito.any());
+
+        assertEquals("X", gridOne.getGrid()[0][0]);
 
     }
 
