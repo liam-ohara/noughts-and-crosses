@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
 
     public String handleNoGridsException (NoGridsException nge) {
 
-        return "";
+        return nge.getMessage();
     }
 }

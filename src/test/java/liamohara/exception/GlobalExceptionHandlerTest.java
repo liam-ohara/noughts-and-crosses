@@ -47,8 +47,16 @@ class GlobalExceptionHandlerTest {
 
     }
 
+    @Test
+    void testHandleNoGridsException() {
 
+        String ngeMessage = "No grids created yet.";
+        NoGridsException nge = new NoGridsException(ngeMessage);
 
+        String result = globalExceptionHandler.handleNoGridsException(nge);
 
+        assertEquals(ngeMessage, result);
+
+    }
 
 }
