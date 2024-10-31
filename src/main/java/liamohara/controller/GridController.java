@@ -18,6 +18,8 @@ public class GridController {
 
     }
 
-    public void updateGrid(int row, int column, Player player) {}
+    public void updateGrid(int gameId, int row, int column, Player player) {
+        gridManagerService.updateGrid(gameId, row, column, player);
+    }
 
 }

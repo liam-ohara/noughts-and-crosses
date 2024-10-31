@@ -1,5 +1,6 @@
 package liamohara.controller;
 
+import liamohara.model.Player;
 import liamohara.service.GameManagerServiceImpl;
 import liamohara.service.GridManagerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,9 @@ class GridControllerTest {
 
         MockitoAnnotations.initMocks(this);
     }
+
+    Player playerOne = new Player("Player One", true, false);
+    Player playerTwo = new Player("Player Two", false, true);
 
     @Test
     @DisplayName("Call addNewGrid method in Service layer once")
@@ -72,4 +76,22 @@ class GridControllerTest {
         assertEquals("X", result[0][0]);
 
     }
+
+    @Test
+    @DisplayName("Calls addGrid method in Service layer once when player makes valid move")
+    void testUpdateGrid_WhenPlayerMakesValidMove() {
+
+        int gameId = 1;
+        String[][] grid = new String[3][3];
+        grid[0][0] = "O";
+        int rowMove = 0;
+        int columnMove = 1;
+
+        gridController.updateGrid(gameId, rowMove, columnMove, playerTwo);
+
+        verify(mockGridManagerServiceImpl, times(1)).updateGrid(gameId, rowMove, columnMove, playerTwo);
+
+    }
+
+
 }
