@@ -21,4 +21,9 @@ public class GlobalExceptionHandler {
 
         return nge.getMessage();
     }
+
+    public String handlePlayerNameTakenException (PlayerNameTakenException pe) {
+
+        return "The player name \"" + pe.getMessage() + "\" is already taken.";
+    }
 }

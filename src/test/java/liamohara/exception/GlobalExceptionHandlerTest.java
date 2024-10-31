@@ -59,4 +59,17 @@ class GlobalExceptionHandlerTest {
 
     }
 
+    @Test
+    void testHandlePlayerNameTakenException() {
+
+        String peMessage = "Player One";
+        PlayerNameTakenException pe = new PlayerNameTakenException(peMessage);
+        String expectedResult = "The player name \"Player One\" is already taken.";
+
+        String result = globalExceptionHandler.handlePlayerNameTakenException(pe);
+
+        assertEquals(expectedResult, result);
+
+    }
+
 }
