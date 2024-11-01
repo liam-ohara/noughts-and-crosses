@@ -90,7 +90,7 @@ public class MainActivity {
             String playerTwoName = reader.readLine();
 
             while(isPlayerTwoRoleInputInvalid) {
-                System.out.println("Please enter the role of Player Two. [O / N] and hit ENTER.");
+                System.out.println("Please enter the role of Player Two. [O / X] and hit ENTER.");
                 String playerTwoRole = reader.readLine();
 
                 if (playerTwoRole.equals("O") || playerTwoRole.equals("X")) {
@@ -104,12 +104,19 @@ public class MainActivity {
 
                     }
                 } else {
-                    System.out.println("Invalid input. Please enter O or N.");
+                    System.out.println("Invalid input. Please enter O or X.");
 
                 }
             }
-            listOfPlayerNames.add(playerOneName);
-            listOfPlayerNames.add(playerTwoName);
+            if (playerOneName.equalsIgnoreCase(playerTwoName)) {
+                System.out.println("Player One name is \"" + playerOneName + "\" and Player Two name is \"" + playerTwoName + ".");
+                System.out.println("Player names must be unique. Please try again.");
+
+            } else {
+                listOfPlayerNames.add(playerOneName);
+                listOfPlayerNames.add(playerTwoName);
+
+            }
 
         }
         //Try catch for player exceptions

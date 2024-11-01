@@ -109,7 +109,7 @@ class MainActivityTest {
 
     @Test
     @DisplayName("Calls the getPlayerNames and addNewPlayer methods once and twice respectively in PlayerController when PlayersRespository is empty and inputs are valid")
-    void testSetup_WhenPlayersRepositoryIsEmpty() throws IOException {
+    void testSetup_WhenPlayersRepositoryIsEmptyAndValidInputsProvidedInFirstAttempt() throws IOException {
 
         String playerOneName = "Player One";
         String playerOneRole = "O";
@@ -132,6 +132,37 @@ class MainActivityTest {
         verify(mockPlayerController, times(1)).getPlayerNames();
         verify(mockPlayerController, times(1)).addNewPlayer(playerOneName, true, false);
         verify(mockPlayerController, times(1)).addNewPlayer(playerTwoName, false, true);
+
+    }
+
+    @Test
+    @DisplayName("Calls the getPlayerNames and addNewPlayer methods once and twice respectively in PlayerController when PlayersRespository is empty and valid player name provided on second attempt")
+    void testSetup_WhenPlayersRepositoryIsEmptyAndNonDuplicatePlayerNameProvidedOnSecondAttempt() throws IOException {
+
+        String playerOneName = "Player One";
+        String playerOneRole = "O";
+        String playerTwoInvalidName = "Player One";
+        String playerTwoRole = "X";
+        String playerTwoValidName = "PlayerTwo";
+
+        ArrayList<String> listOfPlayerNames = new ArrayList<>();
+        ArrayList<String> mockConsoleInputs = new ArrayList<>();
+        mockConsoleInputs.add(playerOneName);
+        mockConsoleInputs.add(playerOneRole);
+        mockConsoleInputs.add(playerTwoInvalidName);
+        mockConsoleInputs.add(playerTwoRole);
+        mockConsoleInputs.add(playerOneName);
+        mockConsoleInputs.add(playerTwoValidName);
+
+        when(mockPlayerController.getPlayerNames()).thenReturn(listOfPlayerNames);
+
+        when(mockBufferedReader.readLine()).thenReturn(provideMultipleInputs(mockConsoleInputs));
+
+        mainActivity.setup();
+
+        verify(mockPlayerController, times(1)).getPlayerNames();
+        verify(mockPlayerController, times(1)).addNewPlayer(playerOneName, true, false);
+        verify(mockPlayerController, times(1)).addNewPlayer(playerTwoValidName, false, true);
 
     }
 }
