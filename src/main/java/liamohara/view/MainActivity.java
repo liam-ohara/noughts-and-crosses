@@ -1,10 +1,19 @@
 package liamohara.view;
 
+import liamohara.controller.PlayerController;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity {
 
-    public void run(){}
+    private PlayerController playerController = new PlayerController();
+
+    public void run() throws IOException {
+        setup();
+    }
 
     protected ArrayList<String> welcome(){
 
@@ -41,9 +50,73 @@ public class MainActivity {
 
     }
 
-    protected void setup(){}
+    protected void setup() throws IOException {
 
-    protected void newPlayer(String playerName, String playerRole){}
+        boolean isPlayerOneRoleInputInvalid = true;
+        boolean isPlayerTwoRoleInputInvalid = true;
+        boolean isPlayerOneNought = false;
+        boolean isPlayerOneCross = false;
+        boolean isPlayerTwoNought = false;
+        boolean isPlayerTwoCross = false;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> listOfPlayerNames = playerController.getPlayerNames();
+
+
+        while (listOfPlayerNames.size() < 2) {
+            System.out.println("Please enter the name of Player One: ");
+            String playerOneName = reader.readLine();
+
+            while(isPlayerOneRoleInputInvalid) {
+                System.out.println("Please enter the role of Player One. [O / N] and hit ENTER.");
+                String playerOneRole = reader.readLine();
+
+                if (playerOneRole.equals("O") || playerOneRole.equals("N")) {
+                    isPlayerOneRoleInputInvalid = false;
+
+                    if (playerOneRole.equals("O")) {
+                        isPlayerOneNought = true;
+
+                    } else {
+                        isPlayerOneCross = true;
+
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter O or N.");
+
+                }
+            }
+
+            System.out.println("Please enter the name of Player Two: ");
+            String playerTwoName = reader.readLine();
+
+            while(isPlayerTwoRoleInputInvalid) {
+                System.out.println("Please enter the role of Player Two. [O / N] and hit ENTER.");
+                String playerTwoRole = reader.readLine();
+
+                if (playerTwoRole.equals("O") || playerTwoRole.equals("X")) {
+                    isPlayerTwoRoleInputInvalid = false;
+
+                    if (playerTwoRole.equals("O")) {
+                        isPlayerTwoNought = true;
+
+                    } else {
+                        isPlayerTwoCross = true;
+
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter O or N.");
+
+                }
+            }
+            listOfPlayerNames.add(playerOneName);
+            listOfPlayerNames.add(playerTwoName);
+
+        }
+        //Try catch for player exceptions
+        playerController.addNewPlayer(listOfPlayerNames.getFirst(), isPlayerOneNought, isPlayerOneCross);
+        playerController.addNewPlayer(listOfPlayerNames.getLast(), isPlayerTwoNought, isPlayerTwoCross);
+
+    }
 
 
 

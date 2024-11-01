@@ -106,4 +106,32 @@ class MainActivityTest {
         assertEquals("", outContent.toString());
 
     }
+
+    @Test
+    @DisplayName("Calls the getPlayerNames and addNewPlayer methods once and twice respectively in PlayerController when PlayersRespository is empty and inputs are valid")
+    void testSetup_WhenPlayersRepositoryIsEmpty() throws IOException {
+
+        String playerOneName = "Player One";
+        String playerOneRole = "O";
+        String playerTwoName = "Player Two";
+        String playerTwoRole = "X";
+
+        ArrayList<String> listOfPlayerNames = new ArrayList<>();
+        ArrayList<String> mockConsoleInputs = new ArrayList<>();
+        mockConsoleInputs.add(playerOneName);
+        mockConsoleInputs.add(playerOneRole);
+        mockConsoleInputs.add(playerTwoName);
+        mockConsoleInputs.add(playerTwoRole);
+
+        when(mockPlayerController.getPlayerNames()).thenReturn(listOfPlayerNames);
+
+        when(mockBufferedReader.readLine()).thenReturn(provideMultipleInputs(mockConsoleInputs));
+
+        mainActivity.setup();
+
+        verify(mockPlayerController, times(1)).getPlayerNames();
+        verify(mockPlayerController, times(1)).addNewPlayer(playerOneName, true, false);
+        verify(mockPlayerController, times(1)).addNewPlayer(playerTwoName, false, true);
+
+    }
 }
