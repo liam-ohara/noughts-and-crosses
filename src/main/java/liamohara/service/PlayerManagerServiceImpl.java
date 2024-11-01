@@ -46,12 +46,10 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
                         playersRepository.addNewPlayer(newPlayer);
                         throw new PlayerRoleTakenException(newPlayerRole + " role is taken by " + listOfPlayers.get(i).getPlayerName() + ". " + newPlayer.getPlayerName() + " has thus been assigned the role of " + newPlayerRoleReassigned + ".");
 
-                    } else {
-                        playersRepository.addNewPlayer(newPlayer);
-
                     }
                 }
             }
+            playersRepository.addNewPlayer(newPlayer);
         }
     }
 
