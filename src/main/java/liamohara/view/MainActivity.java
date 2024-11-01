@@ -1,6 +1,8 @@
 package liamohara.view;
 
 import liamohara.controller.PlayerController;
+import liamohara.exception.GlobalExceptionHandler;
+import liamohara.exception.PlayerRoleTakenException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,6 +53,8 @@ public class MainActivity {
     }
 
     protected void setup() throws IOException {
+
+        GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         boolean isPlayerOneRoleInputInvalid = true;
         boolean isPlayerTwoRoleInputInvalid = true;
@@ -120,8 +124,12 @@ public class MainActivity {
 
         }
         //Try catch for player exceptions
-        playerController.addNewPlayer(listOfPlayerNames.getFirst(), isPlayerOneNought, isPlayerOneCross);
-        playerController.addNewPlayer(listOfPlayerNames.getLast(), isPlayerTwoNought, isPlayerTwoCross);
+        try {
+            playerController.addNewPlayer(listOfPlayerNames.getFirst(), isPlayerOneNought, isPlayerOneCross);
+            playerController.addNewPlayer(listOfPlayerNames.getLast(), isPlayerTwoNought, isPlayerTwoCross);
+        } catch (PlayerRoleTakenException pre) {
+            System.out.println(globalExceptionHandler.handlePlayerRoleTakenException(pre));
+        }
 
     }
 

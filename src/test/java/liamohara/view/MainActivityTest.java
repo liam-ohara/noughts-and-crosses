@@ -1,6 +1,7 @@
 package liamohara.view;
 
 import liamohara.controller.PlayerController;
+import liamohara.exception.PlayerRoleTakenException;
 import org.junit.jupiter.api.*;
 
 import org.junit.jupiter.api.Test;
@@ -23,18 +24,11 @@ class MainActivityTest {
     @InjectMocks
     private MainActivity mainActivity = new MainActivity();
 
-    private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private static final PrintStream originalOut = System.out;
-
-    @BeforeAll
-    public static void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
     @BeforeEach
     public void setUp() throws Exception {
 
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Mock
@@ -46,6 +40,7 @@ class MainActivityTest {
         System.setIn(testIn);
 
     }
+
 
     String provideMultipleInputs(ArrayList<String> data) {
 
@@ -65,11 +60,6 @@ class MainActivityTest {
     }
 
 
-    @AfterAll
-    public static void restoreStreams() {
-        System.setOut(originalOut);
-    }
-
     @Test
     @DisplayName("Returns an ArrayList<String> of size 4 when called")
     void testWelcome() {
@@ -86,6 +76,10 @@ class MainActivityTest {
     @DisplayName("Prints messages, each appended with a new line, to the console when passed and ArrayList of strings")
     void testPrintMessages_WhenPassedArrayListOfStrings() {
 
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
         ArrayList<String> messages = new ArrayList<>();
         messages.add("Test line one");
         messages.add("Test line two");
@@ -93,17 +87,26 @@ class MainActivityTest {
         mainActivity.printMessages(messages);
 
         assertEquals("Test line one\nTest line two\n", outContent.toString());
+
+        System.setOut(originalOut);
+
     }
 
     @Test
     @DisplayName("Nothing printed to console when passed an empty ArrayList")
     void testPrintMessage_WhenPassedEmptyArrayList() {
 
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
         ArrayList<String> messages = new ArrayList<>();
 
         mainActivity.printMessages(messages);
 
         assertEquals("", outContent.toString());
+
+        System.setOut(originalOut);
 
     }
 
@@ -163,6 +166,40 @@ class MainActivityTest {
         verify(mockPlayerController, times(1)).getPlayerNames();
         verify(mockPlayerController, times(1)).addNewPlayer(playerOneName, true, false);
         verify(mockPlayerController, times(1)).addNewPlayer(playerTwoValidName, false, true);
+
+    }
+
+    @Test
+    @DisplayName("Calls the getPlayerNames and addNewPlayer methods once and twice respectively in PlayerController when PlayersRespository is empty and valid player roles provided on second attempt")
+    void testSetup_WhenPlayersRepositoryIsEmptyAndNonDuplicatePlayerRolesProvidedOnSecondAttempt() throws IOException {
+
+        String playerOneName = "Player One";
+        String playerOneRole = "O";
+        String playerTwoName = "Player Two";
+        String playerTwoInvalidRole = "O";
+
+        ArrayList<String> listOfPlayerNames = new ArrayList<>();
+        ArrayList<String> mockConsoleInputs = new ArrayList<>();
+        mockConsoleInputs.add(playerOneName);
+        mockConsoleInputs.add(playerOneRole);
+        mockConsoleInputs.add(playerTwoName);
+        mockConsoleInputs.add(playerTwoInvalidRole);
+
+        String expectedExceptionMessage = "Nought role is taken by Player One. Player Two has thus been assigned the role of cross.";
+
+        when(mockPlayerController.getPlayerNames()).thenReturn(listOfPlayerNames);
+
+        PlayerRoleTakenException pre = new PlayerRoleTakenException(expectedExceptionMessage);
+
+        doThrow(pre).when(mockPlayerController).addNewPlayer(playerTwoName, true, false);
+
+        when(mockBufferedReader.readLine()).thenReturn(provideMultipleInputs(mockConsoleInputs));
+
+        mainActivity.setup();
+
+        verify(mockPlayerController, times(1)).getPlayerNames();
+        verify(mockPlayerController, times(1)).addNewPlayer(playerOneName, true, false);
+        assertThrowsExactly(pre.getClass(), () -> mockPlayerController.addNewPlayer(playerTwoName, true, false), expectedExceptionMessage);
 
     }
 }
