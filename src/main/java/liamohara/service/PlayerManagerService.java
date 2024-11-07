@@ -16,4 +16,6 @@ public interface PlayerManagerService {
 
     ArrayList<String> getPlayerNames();
 
+    String getPlayerRole(String playerName);
+
 }

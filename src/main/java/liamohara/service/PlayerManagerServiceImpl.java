@@ -155,4 +155,9 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
         }
     }
+
+    @Override
+    public String getPlayerRole(String playerName) {
+        return "";
+    }
 }
