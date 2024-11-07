@@ -318,8 +318,25 @@ class PlayerManagerServiceImplTest {
 
         String result = playerManagerServiceImpl.getPlayerRole(emptyPlayerName);
 
-        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(0)).getListOfPlayers();
         assertTrue(result.isEmpty());
+
+    }
+
+    @Test
+    @DisplayName("Returns 'O' when passed name of player with role of nought")
+    void testGetPlayerRole_WhenPassedValidPlayerName() {
+
+        String playerName = "Player One";
+        listOfPlayers.add(playerOne);
+        String expectedResult = "O";
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        String result = playerManagerServiceImpl.getPlayerRole(playerName);
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertEquals(expectedResult, result);
 
     }
 }

@@ -159,8 +159,34 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     @Override
     public String getPlayerRole(String playerName) {
 
-        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+        String playerRole = "";
 
-        return "";
+        if (playerName.isEmpty()) {
+            return playerRole;
+
+        } else {
+            boolean isPlayerNought = false;
+            boolean isPlayerCross = false;
+
+            List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+
+            for (Player p : listOfPlayers) {
+                if (p.getPlayerName().equalsIgnoreCase(playerName)) {
+                    isPlayerNought = p.isNought();
+                    isPlayerCross = p.isCross();
+
+                }
+            }
+
+            if (isPlayerNought) {
+                playerRole = "O";
+
+            } else {
+                playerRole = "X";
+
+            }
+            return playerRole;
+
+        }
     }
 }
