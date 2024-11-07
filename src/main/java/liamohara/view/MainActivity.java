@@ -135,6 +135,32 @@ public class MainActivity {
 
     //protected void play()
 
+    protected String[][] getPlayersData() {
+
+        String[][] playersData = new String[2][4];
+        String playerOneName;
+        String playerTwoName;
+
+        ArrayList<String> playerNames = playerController.getPlayerNames();
+
+        if (!(playerNames.isEmpty())) {
+            playerOneName = playerNames.getFirst();
+            playerTwoName = playerNames.getLast();
+
+            String playerOneRole = playerController.getPlayerRole(playerOneName);
+            String playerTwoRole = playerController.getPlayerRole(playerTwoName);
+            String playerOneMoves = Integer.toString(playerController.getPlayerMovesRemaining(playerOneName));
+            String playerTwoMoves = Integer.toString(playerController.getPlayerMovesRemaining(playerTwoName));
+            String playerOneScore = Integer.toString(playerController.getPlayerScore(playerOneName));
+            String playerTwoScore = Integer.toString(playerController.getPlayerScore(playerOneName));
+
+            return playersData;
+
+        }
+        return  playersData;
+
+    }
+
     protected ArrayList<String> drawPlayerTable(String[][] tableData) {
         ArrayList<String> playerTable = new ArrayList<>();
         String[] tableHeaders = {"Name", "Role", "Moves Remaining", "Score"};

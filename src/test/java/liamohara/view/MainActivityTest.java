@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -202,6 +203,25 @@ class MainActivityTest {
         assertThrowsExactly(pre.getClass(), () -> mockPlayerController.addNewPlayer(playerTwoName, true, false), expectedExceptionMessage);
 
     }
+
+    @Test
+    @DisplayName("Returns empty String[][] when players repository is empty.")
+    void testGetPlayersData_WhenPlayersRepositoryIsEmpty() {
+
+        ArrayList<String> emptyPlayersNameList = new ArrayList<>();
+
+        when(mockPlayerController.getPlayerNames()).thenReturn(emptyPlayersNameList);
+
+        String[][] result = mainActivity.getPlayersData();
+
+        verify(mockPlayerController, times(1)).getPlayerNames();
+        verify(mockPlayerController, times(0)).getPlayerRole(Mockito.any());
+        verify(mockPlayerController, times(0)).getPlayerMovesRemaining(Mockito.any());
+        verify(mockPlayerController, times(0)).getPlayerScore(Mockito.any());
+        assertNull(result[0][0]);
+
+    }
+
 
     @Test
     @DisplayName("Returns table with no players when provided with null String[][]")
