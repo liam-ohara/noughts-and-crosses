@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -200,6 +201,22 @@ class MainActivityTest {
         verify(mockPlayerController, times(1)).getPlayerNames();
         verify(mockPlayerController, times(1)).addNewPlayer(playerOneName, true, false);
         assertThrowsExactly(pre.getClass(), () -> mockPlayerController.addNewPlayer(playerTwoName, true, false), expectedExceptionMessage);
+
+    }
+
+    @Test
+    @DisplayName("Returns table with no players when provided with null String[][]")
+    void testDrawTable_WhenProvidedWithEmptyStringArray() {
+
+        ArrayList<String> playerTable = new ArrayList<>();
+        playerTable.add("| Name | Role | Moves Remaining | Score |");
+        playerTable.add("-----------------------------------------");
+
+        String[][] tableData = new String[0][0];
+
+        ArrayList<String> result = mainActivity.drawTable(tableData);
+
+        assertEquals(playerTable, result);
 
     }
 }

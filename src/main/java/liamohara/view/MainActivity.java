@@ -123,17 +123,26 @@ public class MainActivity {
             }
 
         }
-        //Try catch for player exceptions
         try {
             playerController.addNewPlayer(listOfPlayerNames.getFirst(), isPlayerOneNought, isPlayerOneCross);
             playerController.addNewPlayer(listOfPlayerNames.getLast(), isPlayerTwoNought, isPlayerTwoCross);
+
         } catch (PlayerRoleTakenException pre) {
             System.out.println(globalExceptionHandler.handlePlayerRoleTakenException(pre));
+
         }
+    }
+
+    //protected void play()
+
+    protected ArrayList<String> drawTable(String[][] tableData) {
+        ArrayList<String> playerTable = new ArrayList<>();
+        playerTable.add("| Name | Role | Moves Remaining | Score |");
+        playerTable.add("-----------------------------------------");
+
+        return playerTable;
 
     }
 
-
-
-
+    //protected ArrayList<String> drawGrid(int gameId)
 }
