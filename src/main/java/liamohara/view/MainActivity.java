@@ -145,14 +145,16 @@ public class MainActivity {
 
         if (!(playerNames.isEmpty())) {
             playerOneName = playerNames.getFirst();
+            playersData[0][0] = playerOneName;
             playerTwoName = playerNames.getLast();
+            playersData[1][0] = playerTwoName;
 
-            String playerOneRole = playerController.getPlayerRole(playerOneName);
-            String playerTwoRole = playerController.getPlayerRole(playerTwoName);
-            String playerOneMoves = Integer.toString(playerController.getPlayerMovesRemaining(playerOneName));
-            String playerTwoMoves = Integer.toString(playerController.getPlayerMovesRemaining(playerTwoName));
-            String playerOneScore = Integer.toString(playerController.getPlayerScore(playerOneName));
-            String playerTwoScore = Integer.toString(playerController.getPlayerScore(playerOneName));
+            playersData[0][1] = playerController.getPlayerRole(playerOneName);
+            playersData[1][1] = playerController.getPlayerRole(playerTwoName);
+            playersData[0][2] = Integer.toString(playerController.getPlayerMovesRemaining(playerOneName));
+            playersData[1][2] = Integer.toString(playerController.getPlayerMovesRemaining(playerTwoName));
+            playersData[0][3] = Integer.toString(playerController.getPlayerScore(playerOneName));
+            playersData[1][3] = Integer.toString(playerController.getPlayerScore(playerOneName));
 
             return playersData;
 

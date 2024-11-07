@@ -222,6 +222,33 @@ class MainActivityTest {
 
     }
 
+    @Test
+    @DisplayName("Returns String[][] of player data when players repository contains players.")
+    void testGetPlayersData_WhenPlayersRepositoryContainsPlayers() {
+
+        ArrayList<String> playersNameList = new ArrayList<>();
+        playersNameList.add("Player One");
+        playersNameList.add("Player Two");
+        String[][] expectedResult = { {"Player One", "O", "3", "O"}, {"Player Two", "X", "3", "0"} };
+
+        when(mockPlayerController.getPlayerNames()).thenReturn(playersNameList);
+        when(mockPlayerController.getPlayerRole("Player One")).thenReturn("O");
+        when(mockPlayerController.getPlayerRole("Player Two")).thenReturn("X");
+        when(mockPlayerController.getPlayerMovesRemaining("Player One")).thenReturn(3);
+        when(mockPlayerController.getPlayerMovesRemaining("Player Two")).thenReturn(3);
+        when(mockPlayerController.getPlayerScore("Player One")).thenReturn(0);
+        when(mockPlayerController.getPlayerScore("Player Two")).thenReturn(0);
+
+        String[][] result = mainActivity.getPlayersData();
+
+        verify(mockPlayerController, times(1)).getPlayerNames();
+        verify(mockPlayerController, times(2)).getPlayerRole(Mockito.any());
+        verify(mockPlayerController, times(2)).getPlayerMovesRemaining(Mockito.any());
+        verify(mockPlayerController, times(2)).getPlayerScore(Mockito.any());
+        assertEquals(expectedResult[0][1], result[0][1]);
+
+    }
+
 
     @Test
     @DisplayName("Returns table with no players when provided with null String[][]")
