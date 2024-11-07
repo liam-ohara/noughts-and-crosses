@@ -37,4 +37,8 @@ public class PlayerController {
         return playerManagerService.getPlayerNames();
     }
 
+    public String getPlayerRole(String playerName) {
+        return playerManagerService.getPlayerRole(playerName);
+    }
+
 }

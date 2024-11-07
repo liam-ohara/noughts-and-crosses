@@ -167,4 +167,19 @@ class PlayerControllerTest {
         assertTrue(result.isEmpty());
 
     }
+
+    @Test
+    @DisplayName("Returns empty String when passed empty String")
+    void testGetPlayerRole_WhenPassedEmptyString() {
+
+        String emptyPlayerName = "";
+
+        when(mockPlayerManagerServiceImpl.getPlayerRole(emptyPlayerName)).thenReturn("");
+
+        String result = playerController.getPlayerRole(emptyPlayerName);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).getPlayerRole(emptyPlayerName);
+        assertTrue(result.isEmpty());
+
+    }
 }
