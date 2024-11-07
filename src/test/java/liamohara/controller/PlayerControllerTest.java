@@ -182,4 +182,20 @@ class PlayerControllerTest {
         assertTrue(result.isEmpty());
 
     }
+
+    @Test
+    @DisplayName("Returns player role O when passed name of player with role of nought")
+    void testGetPlayerRole_WhenPassedValidPlayerName() {
+
+        String playerName = "Player One";
+        String expectedResult = "O";
+
+        when(mockPlayerManagerServiceImpl.getPlayerRole(playerName)).thenReturn(expectedResult);
+
+        String result = playerController.getPlayerRole(playerName);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).getPlayerRole(playerName);
+        assertEquals(expectedResult, result);
+
+    }
 }
