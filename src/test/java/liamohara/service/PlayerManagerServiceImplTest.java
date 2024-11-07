@@ -306,4 +306,20 @@ class PlayerManagerServiceImplTest {
         assertTrue(result.isEmpty());
 
     }
+
+    @Test
+    @DisplayName("Returns empty String when passed empty String")
+    void testGetPlayerRole_WhenPassedEmptyString() {
+
+        String emptyPlayerName = "";
+        listOfPlayers.add(playerOne);
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        String result = playerManagerServiceImpl.getPlayerRole(emptyPlayerName);
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertTrue(result.isEmpty());
+
+    }
 }

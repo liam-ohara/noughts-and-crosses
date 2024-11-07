@@ -158,6 +158,9 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
     @Override
     public String getPlayerRole(String playerName) {
+
+        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+
         return "";
     }
 }
