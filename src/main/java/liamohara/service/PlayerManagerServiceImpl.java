@@ -165,6 +165,7 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
             boolean isPlayerNought = false;
             boolean isPlayerCross = false;
 
+            try {
             List<Player> listOfPlayers = playersRepository.getListOfPlayers();
 
             for (Player p : listOfPlayers) {
@@ -177,10 +178,15 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
             if (isPlayerNought) {
                 playerRole = "O";
 
-            } else if (isPlayerCross){
+            } else if (isPlayerCross) {
                 playerRole = "X";
 
             } else {
+                return "";
+
+            }
+
+        } catch (NullPointerException e) {
                 return "";
 
             }

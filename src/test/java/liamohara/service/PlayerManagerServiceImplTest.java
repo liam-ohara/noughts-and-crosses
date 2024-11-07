@@ -356,5 +356,20 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Returns empty string when player Repository is empty")
+    void testGetPlayerRole_WhenPlayerRepositoryIsEmpty() {
+
+        String playerName = "Player One";
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(null);
+
+        String result = playerManagerServiceImpl.getPlayerRole(playerName);
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertTrue(result.isEmpty());
+
+    }
+
 
 }
