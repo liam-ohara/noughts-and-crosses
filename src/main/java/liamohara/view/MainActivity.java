@@ -135,11 +135,214 @@ public class MainActivity {
 
     //protected void play()
 
-    protected ArrayList<String> drawTable(String[][] tableData) {
+    protected ArrayList<String> drawPlayerTable(String[][] tableData) {
         ArrayList<String> playerTable = new ArrayList<>();
-        playerTable.add("| Name | Role | Moves Remaining | Score |");
-        playerTable.add("-----------------------------------------");
+        String[] tableHeaders = {"Name", "Role", "Moves Remaining", "Score"};
+        int colOneWidth = tableHeaders[0].length();
+        int colTwoWidth = tableHeaders[1].length();
+        int colThreeWidth = tableHeaders[2].length();
+        int colFourWidth = tableHeaders[3].length();
+        String headerRow;
+        String line;
+        int lineLength;
+        String playerOneRow;
+        String playerTwoRow;
 
+
+        for (int i = 0; i < tableData.length; i++) {
+            if (tableData[i][0].length() > colOneWidth) {
+                colOneWidth = tableData[i][0].length();
+
+            }
+            if (tableData[i][1].length() > colTwoWidth) {
+                colTwoWidth = tableData[i][1].length();
+
+            }
+            if (tableData[i][2].length() > colThreeWidth) {
+                colThreeWidth = tableData[i][2].length();
+
+            }
+            if (tableData[i][3].length() > colFourWidth) {
+                colFourWidth = tableData[i][3].length();
+
+            }
+        }
+
+        colOneWidth += 3;
+        colTwoWidth += 3;
+        colThreeWidth += 3;
+        colFourWidth += 3;
+
+
+        StringBuilder headerRowBuilder = new StringBuilder();
+        String columnOne = "| " + tableHeaders[0];
+        String columnTwo = "| " + tableHeaders[1];
+        String columnThree = "| " + tableHeaders[2];
+        String columnFour = "| " + tableHeaders[3];
+
+        headerRowBuilder.append(columnOne);
+        int colOneLoopCount = colOneWidth;
+        colOneLoopCount -= columnOne.length();
+
+        while (colOneLoopCount > 0) {
+            headerRowBuilder.append(" ");
+            colOneLoopCount --;
+
+        }
+
+        headerRowBuilder.append(columnTwo);
+        int colTwoLoopCount = colTwoWidth;
+        colTwoLoopCount -= columnTwo.length();
+
+        while (colTwoLoopCount > 0) {
+            headerRowBuilder.append(" ");
+            colTwoLoopCount --;
+
+        }
+
+        headerRowBuilder.append(columnThree);
+        int colThreeLoopCount = colThreeWidth;
+        colThreeLoopCount -= columnThree.length();
+
+        while (colThreeLoopCount > 0) {
+            headerRowBuilder.append(" ");
+            colThreeLoopCount --;
+
+        }
+
+        headerRowBuilder.append(columnFour);
+        int colFourLoopCount = colFourWidth;
+        colFourLoopCount -= columnFour.length();
+
+        while (colFourLoopCount > 0) {
+            headerRowBuilder.append(" ");
+            colFourLoopCount --;
+
+        }
+
+        headerRowBuilder.append("|");
+        headerRow = headerRowBuilder.toString();
+
+        lineLength = headerRow.length();
+
+        StringBuilder lineBuilder = new StringBuilder();
+
+        while (lineLength > 0) {
+            lineBuilder.append("-");
+            lineLength --;
+
+        }
+
+        line = lineBuilder.toString();
+
+        playerTable.add(headerRow);
+        playerTable.add(line);
+
+        if (tableData.length != 0) {
+
+            StringBuilder playerOneRowBuilder = new StringBuilder();
+            columnOne = "| " + tableData[0][0];
+            columnTwo = "| " + tableData[0][1];
+            columnThree = "| " + tableData[0][2];
+            columnFour = "| " + tableData[0][3];
+
+            playerOneRowBuilder.append(columnOne);
+            colOneLoopCount = colOneWidth;
+            colOneLoopCount -= columnOne.length();
+
+            while (colOneLoopCount > 0) {
+                playerOneRowBuilder.append(" ");
+                colOneLoopCount--;
+
+            }
+
+            playerOneRowBuilder.append(columnTwo);
+            colTwoLoopCount = colTwoWidth;
+            colTwoLoopCount -= columnTwo.length();
+
+            while (colTwoLoopCount > 0) {
+                playerOneRowBuilder.append(" ");
+                colTwoLoopCount--;
+
+            }
+
+            playerOneRowBuilder.append(columnThree);
+            colThreeLoopCount = colThreeWidth;
+            colThreeLoopCount -= columnThree.length();
+
+            while (colThreeLoopCount > 0) {
+                playerOneRowBuilder.append(" ");
+                colThreeLoopCount--;
+
+            }
+
+            playerOneRowBuilder.append(columnFour);
+            colFourLoopCount = colFourWidth;
+            colFourLoopCount -= columnFour.length();
+
+            while (colFourLoopCount > 0) {
+                playerOneRowBuilder.append(" ");
+                colFourLoopCount--;
+
+            }
+
+            playerOneRowBuilder.append("|");
+            playerOneRow = playerOneRowBuilder.toString();
+
+            playerTable.add(playerOneRow);
+
+            StringBuilder playerTwoRowBuilder = new StringBuilder();
+            columnOne = "| " + tableData[1][0];
+            columnTwo = "| " + tableData[1][1];
+            columnThree = "| " + tableData[1][2];
+            columnFour = "| " + tableData[1][3];
+
+            playerTwoRowBuilder.append(columnOne);
+            colOneLoopCount = colOneWidth;
+            colOneLoopCount -= columnOne.length();
+
+            while (colOneLoopCount > 0) {
+                playerTwoRowBuilder.append(" ");
+                colOneLoopCount--;
+
+            }
+
+            playerTwoRowBuilder.append(columnTwo);
+            colTwoLoopCount = colTwoWidth;
+            colTwoLoopCount -= columnTwo.length();
+
+            while (colTwoLoopCount > 0) {
+                playerTwoRowBuilder.append(" ");
+                colTwoLoopCount--;
+
+            }
+
+            playerTwoRowBuilder.append(columnThree);
+            colThreeLoopCount = colThreeWidth;
+            colThreeLoopCount -= columnThree.length();
+
+            while (colThreeLoopCount > 0) {
+                playerTwoRowBuilder.append(" ");
+                colThreeLoopCount--;
+
+            }
+
+            playerTwoRowBuilder.append(columnFour);
+            colFourLoopCount = colFourWidth;
+            colFourLoopCount -= columnFour.length();
+
+            while (colFourLoopCount > 0) {
+                playerTwoRowBuilder.append(" ");
+                colFourLoopCount--;
+
+            }
+
+            playerTwoRowBuilder.append("|");
+            playerTwoRow = playerTwoRowBuilder.toString();
+
+            playerTable.add(playerTwoRow);
+
+        }
         return playerTable;
 
     }

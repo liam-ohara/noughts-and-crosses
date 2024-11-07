@@ -10,7 +10,6 @@ import java.io.*;
 import java.util.ArrayList;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -206,7 +205,7 @@ class MainActivityTest {
 
     @Test
     @DisplayName("Returns table with no players when provided with null String[][]")
-    void testDrawTable_WhenProvidedWithEmptyStringArray() {
+    void testDrawPlayerTable_WhenProvidedWithEmptyStringArray() {
 
         ArrayList<String> playerTable = new ArrayList<>();
         playerTable.add("| Name | Role | Moves Remaining | Score |");
@@ -214,7 +213,34 @@ class MainActivityTest {
 
         String[][] tableData = new String[0][0];
 
-        ArrayList<String> result = mainActivity.drawTable(tableData);
+        ArrayList<String> result = mainActivity.drawPlayerTable(tableData);
+
+        assertEquals(playerTable, result);
+
+    }
+
+    @Test
+    @DisplayName("Returns table with two names, role, moves remaining and score of current players when provide valid data")
+    void testDrawPlayerTable_WhenProvidedWithValidDataInStringArray() {
+
+        ArrayList<String> playerTable = new ArrayList<>();
+        playerTable.add("| Name       | Role | Moves Remaining | Score |");
+        playerTable.add("-----------------------------------------------");
+        playerTable.add("| Player One | O    | 3               | 0     |");
+        playerTable.add("| Player Two | X    | 3               | 0     |");
+
+
+        String[][] tableData = new String[2][4];
+        tableData[0][0] = "Player One";
+        tableData[0][1] = "O";
+        tableData[0][2] = "3";
+        tableData[0][3] = "0";
+        tableData[1][0] = "Player Two";
+        tableData[1][1] = "X";
+        tableData[1][2] = "3";
+        tableData[1][3] = "0";
+
+        ArrayList<String> result = mainActivity.drawPlayerTable(tableData);
 
         assertEquals(playerTable, result);
 
