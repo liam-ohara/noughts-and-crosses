@@ -339,4 +339,22 @@ class PlayerManagerServiceImplTest {
         assertEquals(expectedResult, result);
 
     }
+
+    @Test
+    @DisplayName("Returns empty String when player name is not found")
+    void testGetPlayerRole_WhenPlayerNameNotFound() {
+
+        String emptyPlayerName = "Player Two";
+        listOfPlayers.add(playerOne);
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        String result = playerManagerServiceImpl.getPlayerRole(emptyPlayerName);
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        assertTrue(result.isEmpty());
+
+    }
+
+
 }

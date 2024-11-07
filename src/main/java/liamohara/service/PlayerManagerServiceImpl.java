@@ -161,10 +161,7 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
         String playerRole = "";
 
-        if (playerName.isEmpty()) {
-            return playerRole;
-
-        } else {
+        if (!(playerName.isEmpty())) {
             boolean isPlayerNought = false;
             boolean isPlayerCross = false;
 
@@ -177,16 +174,18 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
                 }
             }
-
             if (isPlayerNought) {
                 playerRole = "O";
 
-            } else {
+            } else if (isPlayerCross){
                 playerRole = "X";
 
-            }
-            return playerRole;
+            } else {
+                return "";
 
+            }
         }
+        return playerRole;
+
     }
 }
