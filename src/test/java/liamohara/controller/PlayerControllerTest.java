@@ -46,9 +46,9 @@ class PlayerControllerTest {
     void testGetPlayerMovesRemaining_WhenPlayerHasNotMoved() {
 
         String playerName = "Player One";
-        int expectedMovesRemaining = 3;
+        int expectedMovesRemaining = 5;
 
-        when(mockPlayerManagerServiceImpl.getPlayerMovesRemaining(playerName)).thenReturn(3);
+        when(mockPlayerManagerServiceImpl.getPlayerMovesRemaining(playerName)).thenReturn(5);
 
         int result = playerController.getPlayerMovesRemaining(playerName);
 
