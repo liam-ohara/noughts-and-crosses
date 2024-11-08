@@ -149,7 +149,7 @@ class PlayerManagerServiceImplTest {
     void testGetPlayerMovesRemaining_WhenPlayerHasNotMoved() {
 
         listOfPlayers.add(playerOne);
-        int expectedMovesRemaining = 3;
+        int expectedMovesRemaining = 5;
 
         when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
 
