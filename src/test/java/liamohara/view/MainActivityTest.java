@@ -1,7 +1,9 @@
 package liamohara.view;
 
+import liamohara.controller.GridController;
 import liamohara.controller.PlayerController;
 import liamohara.exception.PlayerRoleTakenException;
+import liamohara.model.Grid;
 import org.junit.jupiter.api.*;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,9 @@ class MainActivityTest {
 
     @Mock
     PlayerController mockPlayerController;
+
+    @Mock
+    GridController mockGridController;
 
     @InjectMocks
     private MainActivity mainActivity = new MainActivity();
@@ -290,6 +295,31 @@ class MainActivityTest {
         ArrayList<String> result = mainActivity.drawPlayerTable(tableData);
 
         assertEquals(playerTable, result);
+
+    }
+
+    @Test
+    @DisplayName("Returns empty grid when no players have moved")
+    void testDrawGrid_WhenNoPlayersHaveMoved() {
+
+        int gameId = 1;
+        String[][] emptyGridData = new String[3][3];
+        ArrayList<String> emptyGrid = new ArrayList<>();
+        emptyGrid.add("    1   2   3  ");
+        emptyGrid.add("  ╔═══╤═══╤═══╗");
+        emptyGrid.add(" 1║   │   │   ║");
+        emptyGrid.add("  ╟───┼───┼───╢");
+        emptyGrid.add(" 2║   │   │   ║");
+        emptyGrid.add("  ╟───┼───┼───╢");
+        emptyGrid.add(" 3║   │   │   ║");
+        emptyGrid.add("  ╚═══╧═══╧═══╝");
+
+        when(mockGridController.getGrid(gameId)).thenReturn(emptyGridData);
+
+        ArrayList<String> result = mainActivity.drawGrid(gameId);
+
+        verify(mockGridController, times(1)).getGrid(gameId);
+        assertEquals(emptyGrid, result);
 
     }
 }

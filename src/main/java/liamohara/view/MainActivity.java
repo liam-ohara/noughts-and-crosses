@@ -1,5 +1,6 @@
 package liamohara.view;
 
+import liamohara.controller.GridController;
 import liamohara.controller.PlayerController;
 import liamohara.exception.GlobalExceptionHandler;
 import liamohara.exception.PlayerRoleTakenException;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class MainActivity {
 
     private PlayerController playerController = new PlayerController();
+    private GridController gridController = new GridController();
 
     public void run() throws IOException {
         setup();
@@ -49,7 +51,6 @@ public class MainActivity {
             }
             System.out.println(string);
         }
-
     }
 
     protected void setup() throws IOException {
@@ -375,5 +376,25 @@ public class MainActivity {
 
     }
 
-    //protected ArrayList<String> drawGrid(int gameId)
+    protected ArrayList<String> drawGrid(int gameId) {
+
+        ArrayList<String> grid = new ArrayList<>();
+        String[][] gridData = gridController.getGrid(gameId);
+
+        String dataRowOne = " 1║   │   │   ║";
+        String dataRowTwo = " 2║   │   │   ║";
+        String dataRowThree = " 3║   │   │   ║";
+        String divider = "  ╟───┼───┼───╢";
+
+        grid.add("    1   2   3  ");
+        grid.add("  ╔═══╤═══╤═══╗");
+        grid.add(dataRowOne);
+        grid.add(divider);
+        grid.add(dataRowTwo);
+        grid.add(divider);
+        grid.add(dataRowThree);
+        grid.add("  ╚═══╧═══╧═══╝");
+
+        return grid;
+    }
 }
