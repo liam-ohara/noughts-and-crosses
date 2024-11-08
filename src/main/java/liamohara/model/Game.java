@@ -4,7 +4,7 @@ public class Game {
 
     private int id;
 
-    private int movesRemaining = 6;
+    private int movesRemaining = 9;
 
     private Player winner;
 
