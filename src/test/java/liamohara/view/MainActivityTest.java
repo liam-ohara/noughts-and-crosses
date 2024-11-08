@@ -322,4 +322,29 @@ class MainActivityTest {
         assertEquals(emptyGrid, result);
 
     }
+
+    @Test
+    @DisplayName("Returns full grid when game is complete")
+    void testDrawGrid_WhenGameIsComplete() {
+
+        int gameId = 1;
+        String[][] emptyGridData = {{"X", "X", "O"}, {"O", "O", "X"}, {"X", "X", "O"}};
+        ArrayList<String> emptyGrid = new ArrayList<>();
+        emptyGrid.add("    1   2   3  ");
+        emptyGrid.add("  ╔═══╤═══╤═══╗");
+        emptyGrid.add(" 1║ X │ X │ O ║");
+        emptyGrid.add("  ╟───┼───┼───╢");
+        emptyGrid.add(" 2║ O │ O │ X ║");
+        emptyGrid.add("  ╟───┼───┼───╢");
+        emptyGrid.add(" 3║ X │ X │ O ║");
+        emptyGrid.add("  ╚═══╧═══╧═══╝");
+
+        when(mockGridController.getGrid(gameId)).thenReturn(emptyGridData);
+
+        ArrayList<String> result = mainActivity.drawGrid(gameId);
+
+        verify(mockGridController, times(1)).getGrid(gameId);
+        assertEquals(emptyGrid, result);
+
+    }
 }

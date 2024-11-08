@@ -380,21 +380,80 @@ public class MainActivity {
 
         ArrayList<String> grid = new ArrayList<>();
         String[][] gridData = gridController.getGrid(gameId);
+        boolean isGridDataEmpty = false;
 
-        String dataRowOne = " 1║   │   │   ║";
-        String dataRowTwo = " 2║   │   │   ║";
-        String dataRowThree = " 3║   │   │   ║";
+        for (String[] s : gridData) {
+            for (int i = 0; i < s.length; i++) {
+                if (s[i] == null) {
+                    isGridDataEmpty = true;
+
+                } else {
+                    isGridDataEmpty = false;
+
+                }
+            }
+        }
+
+        String columnKey = "    1   2   3  ";
+        String topBorder = "  ╔═══╤═══╤═══╗";
+        String emptyDataRowOne = " 1║   │   │   ║";
+        String dataRowOnePtOne = " 1║ ";
+        String emptyDataRowTwo = " 2║   │   │   ║";
+        String dataRowTwoPtOne = " 2║ ";
+        String emptyDataRowThree = " 3║   │   │   ║";
+        String dataRowThreePtOne = " 3║ ";
         String divider = "  ╟───┼───┼───╢";
+        String bottomBorder = "  ╚═══╧═══╧═══╝";
+        String dataRowDivider = " │ ";
+        String dataRowRightBorder = " ║";
 
-        grid.add("    1   2   3  ");
-        grid.add("  ╔═══╤═══╤═══╗");
-        grid.add(dataRowOne);
-        grid.add(divider);
-        grid.add(dataRowTwo);
-        grid.add(divider);
-        grid.add(dataRowThree);
-        grid.add("  ╚═══╧═══╧═══╝");
+        if (!(isGridDataEmpty)) {
+            StringBuilder dataRowOneBuilder = new StringBuilder();
+            dataRowOneBuilder.append(dataRowOnePtOne).append(gridData[0][0])
+                    .append(dataRowDivider).append(gridData[0][1])
+                    .append(dataRowDivider).append(gridData[0][2])
+                    .append(dataRowRightBorder);
 
-        return grid;
+            String dataRowOne = dataRowOneBuilder.toString();
+
+            StringBuilder dataRowTwoBuilder = new StringBuilder();
+            dataRowTwoBuilder.append(dataRowTwoPtOne).append(gridData[1][0])
+                    .append(dataRowDivider).append(gridData[1][1])
+                    .append(dataRowDivider).append(gridData[1][2])
+                    .append(dataRowRightBorder);
+
+            String dataRowTwo = dataRowTwoBuilder.toString();
+
+            StringBuilder dataRowThreeBuilder = new StringBuilder();
+            dataRowThreeBuilder.append(dataRowThreePtOne).append(gridData[2][0])
+                    .append(dataRowDivider).append(gridData[2][1])
+                    .append(dataRowDivider).append(gridData[2][2])
+                    .append(dataRowRightBorder);
+
+            String dataRowThree = dataRowThreeBuilder.toString();
+
+            grid.add(columnKey);
+            grid.add(topBorder);
+            grid.add(dataRowOne);
+            grid.add(divider);
+            grid.add(dataRowTwo);
+            grid.add(divider);
+            grid.add(dataRowThree);
+            grid.add(bottomBorder);
+            return grid;
+
+        } else {
+            grid.add(columnKey);
+            grid.add(topBorder);
+            grid.add(emptyDataRowOne);
+            grid.add(divider);
+            grid.add(emptyDataRowTwo);
+            grid.add(divider);
+            grid.add(emptyDataRowThree);
+            grid.add(bottomBorder);
+
+        }
+            return grid;
+
     }
 }
