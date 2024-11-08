@@ -4,7 +4,7 @@ public class Player {
 
     String playerName;
 
-    int movesRemaining = 3;
+    int movesRemaining = 5;
 
     int playerScore = 0;
 
