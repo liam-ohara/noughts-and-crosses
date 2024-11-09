@@ -473,19 +473,19 @@ public class MainActivity {
 
         boolean isInputInvalid = true;
 
-        while (isInputInvalid) {
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+            while (isInputInvalid) {
                 int columnSelection;
                 int rowSelection;
 
                 System.out.println(playerName + " please enter column number [1 - 3] and hit ENTER.");
                 columnSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
 
-                if (!(columnSelection > 3 || columnSelection < 0)) {
+                if (!(columnSelection > 2 || columnSelection < 0)) {
                     System.out.println(playerName + " please enter row number [1 - 3] and hit ENTER.");
                     rowSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
 
-                    if (!(rowSelection > 3 || rowSelection < 0)) {
+                    if (!(rowSelection > 2 || rowSelection < 0)) {
                         try {
                             //Update grid
                             gridController.updateGrid(gameId, rowSelection, columnSelection, playerName);

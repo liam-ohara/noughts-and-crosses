@@ -369,8 +369,33 @@ class MainActivityTest {
         String rowInput = "1";
         String columnInput = "1";
         ArrayList<String> mockConsoleInputs = new ArrayList<>();
-        mockConsoleInputs.add(rowInput);
         mockConsoleInputs.add(columnInput);
+        mockConsoleInputs.add(rowInput);
+
+
+        when(mockBufferedReader.readLine()).thenReturn(provideMultipleInputs(mockConsoleInputs));
+
+        mainActivity.playerMove(gameId, playerName);
+
+        verify(mockGridController, times(1)).updateGrid(gameId, row, column, playerName);
+
+    }
+
+    @Test
+    @DisplayName("Calls updateGrid in GridController once when user makes a valid move after second attempt")
+    void testPlayerMove_WhenPlayerMakesValidMoveAfterSecondAttempt() throws IOException {
+
+        int gameId = 1;
+        int row = 0;
+        int column = 0;
+        String playerName = "Player One";
+        String rowInput = "1";
+        String invalidColumnInput = "4";
+        String validColumnInput = "1";
+        ArrayList<String> mockConsoleInputs = new ArrayList<>();
+        mockConsoleInputs.add(invalidColumnInput);
+        mockConsoleInputs.add(validColumnInput);
+        mockConsoleInputs.add(rowInput);
 
         when(mockBufferedReader.readLine()).thenReturn(provideMultipleInputs(mockConsoleInputs));
 
