@@ -72,11 +72,11 @@ class GameControllerTest {
     void testSetWinner() {
 
         int gameId = 1;
-        Player player = new Player("Player One", true, false);
+        String winnerName = "Player One";
 
-        gameController.setWinner(gameId, player);
+        gameController.setWinner(gameId, winnerName);
 
-        verify(mockGameManagerServiceImpl, times(1)).setWinner(gameId, player);
+        verify(mockGameManagerServiceImpl, times(1)).setWinner(gameId, winnerName);
 
     }
 }
