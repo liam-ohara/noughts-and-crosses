@@ -474,5 +474,34 @@ class MainActivityTest {
 
     }
 
+    @Test
+    @DisplayName("Returns String[] containing 'draw' and 'null' when game was a draw.")
+    void testAnalyseGame_WhenGameADraw() {
+
+        int gameId = 1;
+        String playerOneName = "Player One";
+        String playerOneRole = "X";
+        String playerTwoName = "Player Two";
+        String playerTwoRole = "O";
+        String[][] gridData = {{"X", "X", "O"}, {"O", "O", "X"}, {"X", "X", "O"}};
+        String[] expectedResults = {"draw", null};
+
+        when(mockGridController.getGrid(gameId)).thenReturn(gridData);
+        when(mockPlayerController.getPlayerRole(playerOneName)).thenReturn(playerOneRole);
+        when(mockPlayerController.getPlayerRole(playerTwoName)).thenReturn(playerTwoRole);
+
+        String[] result = mainActivity.analyseGame(gameId, playerOneName, playerTwoName);
+
+        verify(mockGridController, times(1)).getGrid(gameId);
+        verify(mockPlayerController, times(1)).getPlayerRole(playerOneName);
+        verify(mockPlayerController, times(1)).getPlayerRole(playerTwoName);
+        verify(mockPlayerController, times(0)).updatePlayerScore(playerOneName);
+        verify(mockGameController, times(0)).setWinner(gameId, playerOneName);
+        assertAll(
+                () -> assertEquals(expectedResults[0], result[0]),
+                () -> assertEquals(expectedResults[0], result[0]));
+
+    }
+
 
 }

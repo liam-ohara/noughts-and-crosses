@@ -523,23 +523,100 @@ public class MainActivity {
         String playerOneRole = playerController.getPlayerRole(playerOne);
         String playerTwoRole = playerController.getPlayerRole(playerTwo);
         int noughtCount = 0;
+        int noughtRowCount = 0;
+        int noughtColumnCount = 0;
         int crossCount = 0;
+        int crossRowCount = 0;
+        int crossColumnCount = 0;
         String gameResult;
         String winnerRole;
         String winnerName = "";
         String[] gameAnalysis = new String[2];
 
-        for (String[] array : gridData) {
-            for (int i = 0; i < 3; i++) {
-                if (array[i].equalsIgnoreCase("O")) {
-                    noughtCount ++;
-
-                } else {
-                    crossCount ++;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (gridData[i][j].equalsIgnoreCase("O")) {
+                    noughtRowCount ++;
 
                 }
             }
+            if (noughtRowCount == 3) {
+                noughtCount ++;
+
+            }
+            noughtRowCount = 0;
         }
+
+
+
+
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (gridData[i][j].equalsIgnoreCase("X")) {
+                    crossRowCount ++;
+
+                }
+            }
+            if (crossRowCount == 3) {
+                crossCount ++;
+
+            }
+            crossRowCount = 0;
+
+        }
+
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (gridData[j][i].equalsIgnoreCase("O")) {
+                    noughtColumnCount ++;
+
+                }
+            }
+            if (noughtColumnCount == 3) {
+                noughtCount ++;
+
+            }
+            noughtColumnCount = 0;
+
+        }
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (gridData[j][i].equalsIgnoreCase("X")) {
+                    crossColumnCount ++;
+
+                }
+            }
+            if (crossColumnCount == 3) {
+                crossCount ++;
+
+            }
+            crossColumnCount = 0;
+
+        }
+
+        if (gridData[0][0].equalsIgnoreCase("O") && gridData[1][1].equalsIgnoreCase("O") && gridData[2][2].equalsIgnoreCase("O")) {
+            noughtCount ++;
+
+        }
+
+        if (gridData[0][0].equalsIgnoreCase("X") && gridData[1][1].equalsIgnoreCase("X") && gridData[2][2].equalsIgnoreCase("X")) {
+            noughtCount ++;
+
+        }
+
+        if (gridData[0][2].equalsIgnoreCase("O") && gridData[1][1].equalsIgnoreCase("O") && gridData[2][0].equalsIgnoreCase("O")) {
+            noughtCount ++;
+
+        }
+
+        if (gridData[0][2].equalsIgnoreCase("X") && gridData[1][1].equalsIgnoreCase("X") && gridData[2][0].equalsIgnoreCase("X")) {
+            noughtCount ++;
+
+        }
+
         if (noughtCount == crossCount) {
             gameResult = "draw";
 
