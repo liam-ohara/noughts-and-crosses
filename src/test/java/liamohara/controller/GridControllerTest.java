@@ -79,7 +79,7 @@ class GridControllerTest {
     }
 
     @Test
-    @DisplayName("Calls addGrid method in Service layer once when player makes valid move")
+    @DisplayName("Calls updateGrid method in Service layer once when player makes valid move")
     void testUpdateGrid_WhenPlayerMakesValidMove() {
 
         int gameId = 1;
@@ -88,9 +88,9 @@ class GridControllerTest {
         int rowMove = 0;
         int columnMove = 1;
 
-        gridController.updateGrid(gameId, rowMove, columnMove, playerTwo);
+        gridController.updateGrid(gameId, rowMove, columnMove, playerTwo.getPlayerName());
 
-        verify(mockGridManagerServiceImpl, times(1)).updateGrid(gameId, rowMove, columnMove, playerTwo);
+        verify(mockGridManagerServiceImpl, times(1)).updateGrid(gameId, rowMove, columnMove, playerTwo.getPlayerName());
 
     }
 
@@ -104,9 +104,9 @@ class GridControllerTest {
         int rowMove = 0;
         int columnMove = 0;
 
-        doThrow(IllegalMoveException.class).when(mockGridManagerServiceImpl).updateGrid(gameId, rowMove, columnMove, playerOne);
+        doThrow(IllegalMoveException.class).when(mockGridManagerServiceImpl).updateGrid(gameId, rowMove, columnMove, playerOne.getPlayerName());
 
-        assertThrowsExactly(IllegalMoveException.class, () -> gridController.updateGrid(gameId, rowMove, columnMove, playerOne));
+        assertThrowsExactly(IllegalMoveException.class, () -> gridController.updateGrid(gameId, rowMove, columnMove, playerOne.getPlayerName()));
 
     }
 

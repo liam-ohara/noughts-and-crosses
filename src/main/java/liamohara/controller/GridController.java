@@ -18,8 +18,9 @@ public class GridController {
 
     }
 
-    public void updateGrid(int gameId, int row, int column, Player player) {
-        gridManagerService.updateGrid(gameId, row, column, player);
+    //Parameters need to be modified to accept player name
+    public void updateGrid(int gameId, int row, int column, String playerName) {
+        gridManagerService.updateGrid(gameId, row, column, playerName);
     }
 
 }
