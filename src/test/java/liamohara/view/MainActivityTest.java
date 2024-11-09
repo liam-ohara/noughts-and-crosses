@@ -347,4 +347,14 @@ class MainActivityTest {
         assertEquals(emptyGrid, result);
 
     }
+
+    @Test
+    @DisplayName("Returns integer between 0 and 1 when called")
+    void testFlipCoin() {
+
+        int result = mainActivity.flipCoin();
+
+        assertTrue(result == 0 || result == 1);
+
+    }
 }
