@@ -512,5 +512,8 @@ public class MainActivity {
                 }
             }
         }
+        playerController.updatePlayerMovesRemaining(playerName);
+        gameController.updateMovesRemaining(gameId);
+
     }
 }

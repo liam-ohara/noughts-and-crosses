@@ -1,5 +1,6 @@
 package liamohara.view;
 
+import liamohara.controller.GameController;
 import liamohara.controller.GridController;
 import liamohara.controller.PlayerController;
 import liamohara.exception.IllegalMoveException;
@@ -27,6 +28,9 @@ class MainActivityTest {
 
     @Mock
     GridController mockGridController;
+
+    @Mock
+    GameController mockGameController;
 
     @InjectMocks
     private MainActivity mainActivity = new MainActivity();
@@ -379,6 +383,8 @@ class MainActivityTest {
         mainActivity.playerMove(gameId, playerName);
 
         verify(mockGridController, times(1)).updateGrid(gameId, row, column, playerName);
+        verify(mockPlayerController, times(1)).updatePlayerMovesRemaining(playerName);
+        verify(mockGameController, times(1)).updateMovesRemaining(gameId);
 
     }
 
@@ -403,6 +409,8 @@ class MainActivityTest {
         mainActivity.playerMove(gameId, playerName);
 
         verify(mockGridController, times(1)).updateGrid(gameId, row, column, playerName);
+        verify(mockPlayerController, times(1)).updatePlayerMovesRemaining(playerName);
+        verify(mockGameController, times(1)).updateMovesRemaining(gameId);
 
     }
 
@@ -432,6 +440,8 @@ class MainActivityTest {
 
         verify(mockGridController, times(1)).updateGrid(gameId, row, 0, playerName);
         verify(mockGridController, times(1)).updateGrid(gameId, row, column, playerName);
+        verify(mockPlayerController, times(1)).updatePlayerMovesRemaining(playerName);
+        verify(mockGameController, times(1)).updateMovesRemaining(gameId);
 
     }
 }
