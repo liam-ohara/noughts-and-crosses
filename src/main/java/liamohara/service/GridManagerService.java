@@ -8,5 +8,5 @@ public interface GridManagerService {
 
     String[][] getGrid(int gameId);
 
-    void updateGrid(int gameId, int row, int column, Player player);
+    void updateGrid(int gameId, int row, int column, String playerName);
 }

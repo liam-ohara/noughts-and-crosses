@@ -148,7 +148,7 @@ class GridManagerServiceImplTest {
 
         when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
 
-        gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne);
+        gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne.getPlayerName());
 
         verify(mockGridsRepository, times(1)).getListOfGrids();
         verify(mockGridsRepository, times(1)).updateGrid(Mockito.any());
@@ -163,7 +163,7 @@ class GridManagerServiceImplTest {
 
         when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
 
-        assertThrowsExactly(NoGridsException.class, () -> gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne));
+        assertThrowsExactly(NoGridsException.class, () -> gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne.getPlayerName()));
         verify(mockGridsRepository, times(1)).getListOfGrids();
 
     }
@@ -178,7 +178,7 @@ class GridManagerServiceImplTest {
 
         when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
 
-        assertThrowsExactly(GridNotFoundException.class, () -> gridManagerServiceImpl.updateGrid(2, 0, 0, playerOne));
+        assertThrowsExactly(GridNotFoundException.class, () -> gridManagerServiceImpl.updateGrid(2, 0, 0, playerOne.getPlayerName()));
         verify(mockGridsRepository, times(1)).getListOfGrids();
 
     }
@@ -194,7 +194,7 @@ class GridManagerServiceImplTest {
 
         when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
 
-        assertThrowsExactly(IllegalMoveException.class, () -> gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne));
+        assertThrowsExactly(IllegalMoveException.class, () -> gridManagerServiceImpl.updateGrid(1, 0, 0, playerOne.getPlayerName()));
         verify(mockGridsRepository, times(1)).getListOfGrids();
         verify(mockGridsRepository, times(0)).updateGrid(Mockito.any());
 

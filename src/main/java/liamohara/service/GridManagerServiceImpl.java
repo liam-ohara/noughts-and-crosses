@@ -7,6 +7,7 @@ import liamohara.exception.NoGridsException;
 import liamohara.model.Grid;
 import liamohara.model.Player;
 import liamohara.repository.GridsRepository;
+import liamohara.repository.PlayersRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class GridManagerServiceImpl implements GridManagerService {
 
     GridsRepository gridsRepository = GridsRepository.getInstance();
+    PlayersRepository playersRepository = PlayersRepository.getInstance();
 
     @Override
     public void addNewGrid(int gameId) {
@@ -70,9 +72,23 @@ public class GridManagerServiceImpl implements GridManagerService {
     }
 
     @Override
-    public void updateGrid(int gameId, int row, int column, Player player) {
+    public void updateGrid(int gameId, int row, int column, String playerName) {
 
         List<Grid> listOfGrids = gridsRepository.getListOfGrids();
+        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+        boolean isPlayerNought = false;
+
+        for (Player p : listOfPlayers) {
+            if (p.getPlayerName().equalsIgnoreCase(playerName)) {
+                if (p.isNought()) {
+                    isPlayerNought = true;
+
+                } else {
+                    break;
+
+                }
+            }
+        }
 
         Grid updatedGrid = null;
         String playerSymbol;
@@ -93,7 +109,7 @@ public class GridManagerServiceImpl implements GridManagerService {
             }
         }
 
-        if (player.isNought()) {
+        if (isPlayerNought) {
             playerSymbol = "O";
 
         } else {
