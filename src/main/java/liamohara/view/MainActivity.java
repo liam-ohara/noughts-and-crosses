@@ -4,6 +4,7 @@ import liamohara.controller.GameController;
 import liamohara.controller.GridController;
 import liamohara.controller.PlayerController;
 import liamohara.exception.GlobalExceptionHandler;
+import liamohara.exception.IllegalMoveException;
 import liamohara.exception.PlayerRoleTakenException;
 
 import java.io.BufferedReader;
@@ -17,12 +18,13 @@ public class MainActivity {
     private PlayerController playerController = new PlayerController();
     private GridController gridController = new GridController();
     private GameController gameController = new GameController();
+    private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
     public void run() throws IOException {
         setup();
     }
 
-    protected ArrayList<String> welcome(){
+    protected ArrayList<String> welcome() {
 
         ArrayList<String> messages = new ArrayList<>();
         messages.add("Welcome to Noughts and Crosses!\n");
@@ -34,7 +36,7 @@ public class MainActivity {
 
     }
 
-    protected void printMessages (ArrayList<String> messages) {
+    protected void printMessages(ArrayList<String> messages) {
 
         if (messages.isEmpty()) {
             System.out.print("");
@@ -74,7 +76,7 @@ public class MainActivity {
             System.out.println("Please enter the name of Player One: ");
             String playerOneName = reader.readLine();
 
-            while(isPlayerOneRoleInputInvalid) {
+            while (isPlayerOneRoleInputInvalid) {
                 System.out.println("Please enter the role of Player One. [O / N] and hit ENTER.");
                 String playerOneRole = reader.readLine();
 
@@ -97,7 +99,7 @@ public class MainActivity {
             System.out.println("Please enter the name of Player Two: ");
             String playerTwoName = reader.readLine();
 
-            while(isPlayerTwoRoleInputInvalid) {
+            while (isPlayerTwoRoleInputInvalid) {
                 System.out.println("Please enter the role of Player Two. [O / X] and hit ENTER.");
                 String playerTwoRole = reader.readLine();
 
@@ -139,7 +141,6 @@ public class MainActivity {
 
     //protected void play()
 
-
     protected String[][] getPlayersData() {
 
         String[][] playersData = new String[2][4];
@@ -164,7 +165,7 @@ public class MainActivity {
             return playersData;
 
         }
-        return  playersData;
+        return playersData;
 
     }
 
@@ -219,7 +220,7 @@ public class MainActivity {
 
         while (colOneLoopCount > 0) {
             headerRowBuilder.append(" ");
-            colOneLoopCount --;
+            colOneLoopCount--;
 
         }
 
@@ -229,7 +230,7 @@ public class MainActivity {
 
         while (colTwoLoopCount > 0) {
             headerRowBuilder.append(" ");
-            colTwoLoopCount --;
+            colTwoLoopCount--;
 
         }
 
@@ -239,7 +240,7 @@ public class MainActivity {
 
         while (colThreeLoopCount > 0) {
             headerRowBuilder.append(" ");
-            colThreeLoopCount --;
+            colThreeLoopCount--;
 
         }
 
@@ -249,7 +250,7 @@ public class MainActivity {
 
         while (colFourLoopCount > 0) {
             headerRowBuilder.append(" ");
-            colFourLoopCount --;
+            colFourLoopCount--;
 
         }
 
@@ -262,7 +263,7 @@ public class MainActivity {
 
         while (lineLength > 0) {
             lineBuilder.append("-");
-            lineLength --;
+            lineLength--;
 
         }
 
@@ -457,7 +458,7 @@ public class MainActivity {
             grid.add(bottomBorder);
 
         }
-            return grid;
+        return grid;
 
     }
 
@@ -466,5 +467,45 @@ public class MainActivity {
 
         return rand.nextInt(2);
 
+    }
+
+    protected void playerMove(int gameId, String playerName) throws IOException {
+
+        boolean isInputInvalid = true;
+
+        while (isInputInvalid) {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+                int columnSelection;
+                int rowSelection;
+
+                System.out.println(playerName + " please enter column number [1 - 3] and hit ENTER.");
+                columnSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
+
+                if (!(columnSelection > 3 || columnSelection < 0)) {
+                    System.out.println(playerName + " please enter row number [1 - 3] and hit ENTER.");
+                    rowSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
+
+                    if (!(rowSelection > 3 || rowSelection < 0)) {
+                        try {
+                            //Update grid
+                            gridController.updateGrid(gameId, rowSelection, columnSelection, playerName);
+
+                        } catch (IllegalMoveException ie) {
+                            System.out.println(exceptionHandler.handleIllegalMoveException(ie));
+                            isInputInvalid = true;
+
+                        }
+                        isInputInvalid = false;
+
+                    } else {
+                        isInputInvalid = true;
+
+                    }
+                } else {
+                    isInputInvalid = true;
+
+                }
+            }
+        }
     }
 }
