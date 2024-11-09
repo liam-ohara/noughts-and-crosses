@@ -472,6 +472,7 @@ public class MainActivity {
     protected void playerMove(int gameId, String playerName) throws IOException {
 
         boolean isInputInvalid = true;
+        boolean illegalMoveExceptionThrown = false;
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
             while (isInputInvalid) {
@@ -486,22 +487,26 @@ public class MainActivity {
                     rowSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
 
                     if (!(rowSelection > 2 || rowSelection < 0)) {
-                        try {
-                            //Update grid
-                            gridController.updateGrid(gameId, rowSelection, columnSelection, playerName);
+                            try {
+                                gridController.updateGrid(gameId, rowSelection, columnSelection, playerName);
 
-                        } catch (IllegalMoveException ie) {
-                            System.out.println(exceptionHandler.handleIllegalMoveException(ie));
-                            isInputInvalid = true;
+                            } catch (IllegalMoveException ie) {
+                                System.out.println(exceptionHandler.handleIllegalMoveException(ie));
+                                illegalMoveExceptionThrown = true;
 
-                        }
-                        isInputInvalid = false;
+                            }
+                            isInputInvalid = false;
 
                     } else {
                         isInputInvalid = true;
 
                     }
                 } else {
+                    isInputInvalid = true;
+
+                }
+                if (illegalMoveExceptionThrown) {
+                    illegalMoveExceptionThrown = false;
                     isInputInvalid = true;
 
                 }

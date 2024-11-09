@@ -2,6 +2,7 @@ package liamohara.view;
 
 import liamohara.controller.GridController;
 import liamohara.controller.PlayerController;
+import liamohara.exception.IllegalMoveException;
 import liamohara.exception.PlayerRoleTakenException;
 import liamohara.model.Grid;
 import org.junit.jupiter.api.*;
@@ -382,7 +383,7 @@ class MainActivityTest {
     }
 
     @Test
-    @DisplayName("Calls updateGrid in GridController once when user makes a valid move after second attempt")
+    @DisplayName("Calls updateGrid in GridController once when player makes a valid move after second attempt")
     void testPlayerMove_WhenPlayerMakesValidMoveAfterSecondAttempt() throws IOException {
 
         int gameId = 1;
@@ -401,6 +402,35 @@ class MainActivityTest {
 
         mainActivity.playerMove(gameId, playerName);
 
+        verify(mockGridController, times(1)).updateGrid(gameId, row, column, playerName);
+
+    }
+
+    @Test
+    @DisplayName("Calls updateGrid in GridController once when player makes a legal after second attempt")
+    void testPlayerMove_WhenPlayerMakesLegalMoveAfterSecondAttempt() throws IOException {
+
+        int gameId = 1;
+        int row = 0;
+        int column = 1;
+        String playerName = "Player Two";
+        String rowInput = "1";
+        String illegalColumnInput = "1";
+        String validColumnInput = "2";
+        ArrayList<String> mockConsoleInputs = new ArrayList<>();
+        mockConsoleInputs.add(illegalColumnInput);
+        mockConsoleInputs.add(rowInput);
+        mockConsoleInputs.add(validColumnInput);
+        mockConsoleInputs.add(rowInput);
+        String ieMsg = "Position: row " + rowInput + " by column " + illegalColumnInput;
+        IllegalMoveException ie = new IllegalMoveException(ieMsg);
+
+        when(mockBufferedReader.readLine()).thenReturn(provideMultipleInputs(mockConsoleInputs));
+        doThrow(ie).when(mockGridController).updateGrid(gameId, row, 0, playerName);
+
+        mainActivity.playerMove(gameId, playerName);
+
+        verify(mockGridController, times(1)).updateGrid(gameId, row, 0, playerName);
         verify(mockGridController, times(1)).updateGrid(gameId, row, column, playerName);
 
     }
