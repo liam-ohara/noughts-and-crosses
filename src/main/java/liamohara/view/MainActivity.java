@@ -516,4 +516,61 @@ public class MainActivity {
         gameController.updateMovesRemaining(gameId);
 
     }
+
+    protected String[] analyseGame(int gameId, String playerOne, String playerTwo) {
+
+        String[][] gridData = gridController.getGrid(gameId);
+        String playerOneRole = playerController.getPlayerRole(playerOne);
+        String playerTwoRole = playerController.getPlayerRole(playerTwo);
+        int noughtCount = 0;
+        int crossCount = 0;
+        String gameResult;
+        String winnerRole;
+        String winnerName = "";
+        String[] gameAnalysis = new String[2];
+
+        for (String[] array : gridData) {
+            for (int i = 0; i < 3; i++) {
+                if (array[i].equalsIgnoreCase("O")) {
+                    noughtCount ++;
+
+                } else {
+                    crossCount ++;
+
+                }
+            }
+        }
+        if (noughtCount == crossCount) {
+            gameResult = "draw";
+
+        } else {
+            gameResult = "won";
+
+            if (noughtCount > crossCount) {
+                winnerRole = "O";
+
+            } else {
+                winnerRole = "X";
+
+            }
+            if (winnerRole.equalsIgnoreCase(playerOneRole)) {
+                winnerName = playerOne;
+
+            } else {
+                winnerName = playerTwo;
+
+            }
+            gameController.setWinner(gameId, winnerName);
+            playerController.updatePlayerScore(winnerName);
+
+        }
+        gameAnalysis[0] = gameResult;
+
+        if (winnerName != null) {
+            gameAnalysis[1] = winnerName;
+
+        }
+        return gameAnalysis;
+
+    }
 }

@@ -444,4 +444,35 @@ class MainActivityTest {
         verify(mockGameController, times(1)).updateMovesRemaining(gameId);
 
     }
+
+    @Test
+    @DisplayName("Returns String[] containing 'won' and 'Player One' when Player One has won game")
+    void testAnalyseGame_WhenPlayerOneHasWonGame() {
+
+        int gameId = 1;
+        String playerOneName = "Player One";
+        String playerOneRole = "X";
+        String playerTwoName = "Player Two";
+        String playerTwoRole = "O";
+        String[][] gridData = {{"X", "X", "X"}, {"O", "O", "X"}, {"X", "O", "O"}};
+        String[] expectedResults = {"won", "Player One"};
+
+        when(mockGridController.getGrid(gameId)).thenReturn(gridData);
+        when(mockPlayerController.getPlayerRole(playerOneName)).thenReturn(playerOneRole);
+        when(mockPlayerController.getPlayerRole(playerTwoName)).thenReturn(playerTwoRole);
+
+        String[] result = mainActivity.analyseGame(gameId, playerOneName, playerTwoName);
+
+        verify(mockGridController, times(1)).getGrid(gameId);
+        verify(mockPlayerController, times(1)).getPlayerRole(playerOneName);
+        verify(mockPlayerController, times(1)).getPlayerRole(playerTwoName);
+        verify(mockPlayerController, times(1)).updatePlayerScore(playerOneName);
+        verify(mockGameController, times(1)).setWinner(gameId, playerOneName);
+        assertAll(
+                () -> assertEquals(expectedResults[0], result[0]),
+                () -> assertEquals(expectedResults[0], result[0]));
+
+    }
+
+
 }
