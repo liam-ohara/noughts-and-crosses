@@ -354,6 +354,31 @@ class MainActivityTest {
     }
 
     @Test
+    @DisplayName("Returns partial grid when game is progress")
+    void testDrawGrid_WhenGameIsInProgress() {
+
+        int gameId = 1;
+        String[][] emptyGridData = {{"X", null, null}, {"O", null, null}, {"X", null, null}};
+        ArrayList<String> emptyGrid = new ArrayList<>();
+        emptyGrid.add("    1   2   3  ");
+        emptyGrid.add("  ╔═══╤═══╤═══╗");
+        emptyGrid.add(" 1║ X │   │   ║");
+        emptyGrid.add("  ╟───┼───┼───╢");
+        emptyGrid.add(" 2║ O │   │   ║");
+        emptyGrid.add("  ╟───┼───┼───╢");
+        emptyGrid.add(" 3║ X │   │   ║");
+        emptyGrid.add("  ╚═══╧═══╧═══╝");
+
+        when(mockGridController.getGrid(gameId)).thenReturn(emptyGridData);
+
+        ArrayList<String> result = mainActivity.drawGrid(gameId);
+
+        verify(mockGridController, times(1)).getGrid(gameId);
+        assertEquals(emptyGrid, result);
+
+    }
+
+    @Test
     @DisplayName("Returns integer between 0 and 1 when called")
     void testFlipCoin() {
 

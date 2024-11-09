@@ -15,20 +15,22 @@ import java.util.Random;
 
 public class MainActivity {
 
+
+
     private PlayerController playerController = new PlayerController();
     private GridController gridController = new GridController();
     private GameController gameController = new GameController();
     private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-    public void run() throws IOException {
-        setup();
+    public void run()  {
+
     }
 
     protected ArrayList<String> welcome() {
 
         ArrayList<String> messages = new ArrayList<>();
         messages.add("Welcome to Noughts and Crosses!\n");
-        messages.add("This is a two player game in which player place a nought or cross in a 3x3 grid.");
+        messages.add("This is a two player game in which players place a nought or cross in a 3x3 grid.");
         messages.add("The first player to have three of their markers filling a row, column or diagonal wins.\n");
         messages.add("Do you wish to start a new game? [Y / N] and hit ENTER.\n");
 
@@ -77,10 +79,10 @@ public class MainActivity {
             String playerOneName = reader.readLine();
 
             while (isPlayerOneRoleInputInvalid) {
-                System.out.println("Please enter the role of Player One. [O / N] and hit ENTER.");
+                System.out.println("Please enter the role of Player One. [O / X] and hit ENTER.");
                 String playerOneRole = reader.readLine();
 
-                if (playerOneRole.equals("O") || playerOneRole.equals("N")) {
+                if (playerOneRole.equals("O") || playerOneRole.equals("X")) {
                     isPlayerOneRoleInputInvalid = false;
 
                     if (playerOneRole.equals("O")) {
@@ -91,7 +93,7 @@ public class MainActivity {
 
                     }
                 } else {
-                    System.out.println("Invalid input. Please enter O or N.");
+                    System.out.println("Invalid input. Please enter O or X.");
 
                 }
             }
@@ -385,18 +387,23 @@ public class MainActivity {
 
         ArrayList<String> grid = new ArrayList<>();
         String[][] gridData = gridController.getGrid(gameId);
+        int emptyCellCount = 0;
         boolean isGridDataEmpty = false;
 
         for (String[] s : gridData) {
             for (int i = 0; i < s.length; i++) {
                 if (s[i] == null) {
-                    isGridDataEmpty = true;
+                    emptyCellCount ++;
 
                 } else {
-                    isGridDataEmpty = false;
+                    break;
 
                 }
             }
+        }
+
+        if (emptyCellCount == 9) {
+            isGridDataEmpty = true;
         }
 
         String columnKey = "    1   2   3  ";
@@ -414,25 +421,25 @@ public class MainActivity {
 
         if (!(isGridDataEmpty)) {
             StringBuilder dataRowOneBuilder = new StringBuilder();
-            dataRowOneBuilder.append(dataRowOnePtOne).append(gridData[0][0])
-                    .append(dataRowDivider).append(gridData[0][1])
-                    .append(dataRowDivider).append(gridData[0][2])
+            dataRowOneBuilder.append(dataRowOnePtOne).append((gridData[0][0] == null)? " ":gridData[0][0])
+                    .append(dataRowDivider).append((gridData[0][1] == null)? " ":gridData[0][1])
+                    .append(dataRowDivider).append((gridData[0][2] == null)? " ":gridData[0][2])
                     .append(dataRowRightBorder);
 
             String dataRowOne = dataRowOneBuilder.toString();
 
             StringBuilder dataRowTwoBuilder = new StringBuilder();
-            dataRowTwoBuilder.append(dataRowTwoPtOne).append(gridData[1][0])
-                    .append(dataRowDivider).append(gridData[1][1])
-                    .append(dataRowDivider).append(gridData[1][2])
+            dataRowTwoBuilder.append(dataRowTwoPtOne).append((gridData[1][0] == null)? " ":gridData[1][0])
+                    .append(dataRowDivider).append((gridData[1][1] == null)? " ":gridData[1][1])
+                    .append(dataRowDivider).append((gridData[1][2] == null)? " ":gridData[1][2])
                     .append(dataRowRightBorder);
 
             String dataRowTwo = dataRowTwoBuilder.toString();
 
             StringBuilder dataRowThreeBuilder = new StringBuilder();
-            dataRowThreeBuilder.append(dataRowThreePtOne).append(gridData[2][0])
-                    .append(dataRowDivider).append(gridData[2][1])
-                    .append(dataRowDivider).append(gridData[2][2])
+            dataRowThreeBuilder.append(dataRowThreePtOne).append((gridData[2][0] == null)? " ":gridData[2][0])
+                    .append(dataRowDivider).append((gridData[2][1] == null)? " ":gridData[2][1])
+                    .append(dataRowDivider).append((gridData[2][2] == null)? " ":gridData[2][2])
                     .append(dataRowRightBorder);
 
             String dataRowThree = dataRowThreeBuilder.toString();
@@ -474,17 +481,18 @@ public class MainActivity {
         boolean isInputInvalid = true;
         boolean illegalMoveExceptionThrown = false;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
             while (isInputInvalid) {
                 int columnSelection;
                 int rowSelection;
 
                 System.out.println(playerName + " please enter column number [1 - 3] and hit ENTER.");
-                columnSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
+                columnSelection = (Integer.parseInt(reader.readLine())) - 1;
 
                 if (!(columnSelection > 2 || columnSelection < 0)) {
                     System.out.println(playerName + " please enter row number [1 - 3] and hit ENTER.");
-                    rowSelection = (Integer.parseInt(bufferedReader.readLine())) - 1;
+                    rowSelection = (Integer.parseInt(reader.readLine())) - 1;
 
                     if (!(rowSelection > 2 || rowSelection < 0)) {
                             try {
@@ -511,9 +519,8 @@ public class MainActivity {
 
                 }
             }
-        }
-        playerController.updatePlayerMovesRemaining(playerName);
-        gameController.updateMovesRemaining(gameId);
+            playerController.updatePlayerMovesRemaining(playerName);
+            gameController.updateMovesRemaining(gameId);
 
     }
 
@@ -650,4 +657,5 @@ public class MainActivity {
         return gameAnalysis;
 
     }
+
 }
