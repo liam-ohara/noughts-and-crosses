@@ -10,6 +10,6 @@ public interface GameManagerService {
 
     void updateMovesRemaining(int gameId);
 
-    void setWinner(int gameId, Player winner);
+    void setWinner(int gameId, String winnerName);
 
 }

@@ -3,6 +3,7 @@ package liamohara.service;
 import liamohara.model.Game;
 import liamohara.model.Player;
 import liamohara.repository.GamesRepository;
+import liamohara.repository.PlayersRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class GameManagerServiceImpl implements GameManagerService {
 
     GamesRepository gamesRepository = GamesRepository.getInstance();
+    PlayersRepository playersRepository = PlayersRepository.getInstance();
 
     @Override
     public int startNewGame() {
@@ -86,12 +88,20 @@ public class GameManagerServiceImpl implements GameManagerService {
     }
 
     @Override
-    public void setWinner(int gameId, Player winner) {
+    public void setWinner(int gameId, String winnerName) {
 
-        List<Game> listOfGames;
-        listOfGames = gamesRepository.getListOfGames();
+        List<Game> listOfGames = gamesRepository.getListOfGames();
+        List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+        Player winner = null;
         Game updatedGame;
         int movesRemaining;
+
+        for (Player p : listOfPlayers) {
+            if (p.getPlayerName().equalsIgnoreCase(winnerName)) {
+                winner = p;
+
+            }
+        }
 
         if (!(listOfGames.isEmpty())) {
             for (int i = 0; i < listOfGames.size(); i++) {

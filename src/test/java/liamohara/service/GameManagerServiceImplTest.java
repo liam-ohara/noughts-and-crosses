@@ -3,6 +3,7 @@ package liamohara.service;
 import liamohara.model.Game;
 import liamohara.model.Player;
 import liamohara.repository.GamesRepository;
+import liamohara.repository.PlayersRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,9 @@ class GameManagerServiceImplTest {
 
     @Mock
     GamesRepository mockGamesRepository;
+
+    @Mock
+    PlayersRepository mockPlayersRepository;
 
     @InjectMocks
     GameManagerServiceImpl gameManagerServiceImpl;
@@ -145,10 +149,13 @@ class GameManagerServiceImplTest {
         firstGame.setMovesRemaining(0);
         listOfGames.add(firstGame);
         String nameOfPlayerOne = "Player One";
+        List<Player> listOfPlayers = new ArrayList<>();
+        listOfPlayers.add(playerOne);
 
         when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
 
-        gameManagerServiceImpl.setWinner(firstGame.getId(), playerOne);
+        gameManagerServiceImpl.setWinner(firstGame.getId(), nameOfPlayerOne);
 
         verify(mockGamesRepository, times(1)).getListOfGames();
         verify(mockGamesRepository, times(1)).updateGame(Mockito.any());
@@ -164,10 +171,15 @@ class GameManagerServiceImplTest {
         firstGame.setMovesRemaining(1);
         listOfGames.add(firstGame);
         String playerName = null;
+        String nameOfPlayerOne = "Player One";
+        List<Player> listOfPlayers = new ArrayList<>();
+        listOfPlayers.add(playerOne);
+
 
         when(mockGamesRepository.getListOfGames()).thenReturn(listOfGames);
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
 
-        gameManagerServiceImpl.setWinner(firstGame.getId(), playerOne);
+        gameManagerServiceImpl.setWinner(firstGame.getId(), nameOfPlayerOne);
 
         verify(mockGamesRepository, times(1)).getListOfGames();
         verify(mockGamesRepository, times(0)).updateGame(Mockito.any());
