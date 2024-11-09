@@ -22,9 +22,8 @@ public class MainActivity {
     private GameController gameController = new GameController();
     private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-    public void run()  {
 
-    }
+    public void run() {}
 
     protected ArrayList<String> welcome() {
 
@@ -141,7 +140,7 @@ public class MainActivity {
         }
     }
 
-    //protected void play()
+    protected void play() {}
 
     protected String[][] getPlayersData() {
 
@@ -542,9 +541,14 @@ public class MainActivity {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gridData[i][j].equalsIgnoreCase("O")) {
-                    noughtRowCount ++;
+                if (gridData[i][j] == null) {
+                    gridData[i][j] = "";
+                }
+                else {
+                    if (gridData[i][j].equalsIgnoreCase("O")) {
+                        noughtRowCount++;
 
+                    }
                 }
             }
             if (noughtRowCount == 3) {
@@ -560,9 +564,14 @@ public class MainActivity {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gridData[i][j].equalsIgnoreCase("X")) {
-                    crossRowCount ++;
+                if (gridData[i][j] == null) {
+                    gridData[i][j] = "";
+                }
+                else {
+                    if (gridData[i][j].equalsIgnoreCase("X")) {
+                        crossRowCount++;
 
+                    }
                 }
             }
             if (crossRowCount == 3) {
@@ -576,9 +585,14 @@ public class MainActivity {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gridData[j][i].equalsIgnoreCase("O")) {
-                    noughtColumnCount ++;
+                if (gridData[j][i] == null) {
+                    gridData[j][i] = "";
+                }
+                else {
+                    if (gridData[j][i].equalsIgnoreCase("O")) {
+                        noughtColumnCount++;
 
+                    }
                 }
             }
             if (noughtColumnCount == 3) {
@@ -591,9 +605,14 @@ public class MainActivity {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gridData[j][i].equalsIgnoreCase("X")) {
-                    crossColumnCount ++;
+                if (gridData[j][i] == null) {
+                    gridData[j][i] = "";
+                }
+                else {
+                    if (gridData[j][i].equalsIgnoreCase("X")) {
+                        crossColumnCount++;
 
+                    }
                 }
             }
             if (crossColumnCount == 3) {
