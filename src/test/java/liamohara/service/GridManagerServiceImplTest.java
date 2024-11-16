@@ -200,6 +200,33 @@ class GridManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Calls updateGrid method in GridsRepository once when player makes valid move after the null values have been replaced with empty strings")
+    void testUpdateGrid_WhenGridNullValuesHaveBeenReplacedWithEmptyStrings() {
+
+        String[][] gridData = new String[3][3];
+        gridData[0][0] = "X";
+        gridData[0][1] = "";
+        gridData[0][2] = "";
+        gridData[1][0] = "";
+        gridData[1][1] = "";
+        gridData[1][2] = "";
+        gridData[2][0] = "";
+        gridData[2][1] = "";
+        gridData[2][2] = "";
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        gridManagerServiceImpl.updateGrid(1, 1, 0, playerOne.getPlayerName());
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        verify(mockGridsRepository, times(1)).updateGrid(Mockito.any());
+        assertEquals("X", gridOne.getGrid()[0][0]);
+
+    }
+
 
 
 }

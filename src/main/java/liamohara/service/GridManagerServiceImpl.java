@@ -119,7 +119,7 @@ public class GridManagerServiceImpl implements GridManagerService {
 
         updatedGridData = updatedGrid.getGrid();
 
-        if (updatedGridData[row][column] == null) {
+        if (updatedGridData[row][column] == null || updatedGridData[row][column].isEmpty()) {
             updatedGridData[row][column] = playerSymbol;
             updatedGrid.setGrid(updatedGridData);
 
