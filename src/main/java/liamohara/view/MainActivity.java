@@ -22,7 +22,6 @@ public class MainActivity {
     private GameController gameController = new GameController();
     private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-
     public void run() {}
 
     protected ArrayList<String> welcome() {
@@ -161,7 +160,7 @@ public class MainActivity {
             playersData[0][2] = Integer.toString(playerController.getPlayerMovesRemaining(playerOneName));
             playersData[1][2] = Integer.toString(playerController.getPlayerMovesRemaining(playerTwoName));
             playersData[0][3] = Integer.toString(playerController.getPlayerScore(playerOneName));
-            playersData[1][3] = Integer.toString(playerController.getPlayerScore(playerOneName));
+            playersData[1][3] = Integer.toString(playerController.getPlayerScore(playerTwoName));
 
             return playersData;
 
@@ -674,6 +673,13 @@ public class MainActivity {
 
         }
         return gameAnalysis;
+
+    }
+
+    protected void postResult (int gameId, String winnerName) {
+
+        gameController.setWinner(gameId, winnerName);
+        playerController.updatePlayerScore(winnerName);
 
     }
 

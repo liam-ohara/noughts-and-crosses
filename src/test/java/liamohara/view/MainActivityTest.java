@@ -303,6 +303,7 @@ class MainActivityTest {
 
     }
 
+
     @Test
     @DisplayName("Returns empty grid when no players have moved")
     void testDrawGrid_WhenNoPlayersHaveMoved() {
@@ -554,6 +555,20 @@ class MainActivityTest {
         assertAll(
                 () -> assertEquals(expectedResults[0], result[0]),
                 () -> assertEquals(expectedResults[1], result[1]));
+
+    }
+
+    @Test
+    @DisplayName("Calls setWinner and updatePlayerScore in GameController and PlayerController, respectively, once each when called")
+    void testPostResult_WhenProvidedWithValidGameIdAndValidPlayerName () {
+
+        int gameId = 1;
+        String winnerName = "Player One";
+
+        mainActivity.postResult(gameId, winnerName);
+
+        verify(mockPlayerController, times(1)).updatePlayerScore(winnerName);
+        verify(mockGameController, times(1)).setWinner(gameId, winnerName);
 
     }
 
