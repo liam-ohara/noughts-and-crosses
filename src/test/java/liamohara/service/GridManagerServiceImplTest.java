@@ -201,19 +201,19 @@ class GridManagerServiceImplTest {
     }
 
     @Test
-    @DisplayName("Calls updateGrid method in GridsRepository once when player makes valid move after the null values have been replaced with empty strings")
-    void testUpdateGrid_WhenGridNullValuesHaveBeenReplacedWithEmptyStrings() {
+    @DisplayName("Calls updateGrid method in GridsRepository once when player makes valid move after the null values have been replaced with white space")
+    void testUpdateGrid_WhenGridNullValuesHaveBeenReplacedWithWhiteSpace() {
 
         String[][] gridData = new String[3][3];
         gridData[0][0] = "X";
-        gridData[0][1] = "";
-        gridData[0][2] = "";
-        gridData[1][0] = "";
-        gridData[1][1] = "";
-        gridData[1][2] = "";
-        gridData[2][0] = "";
-        gridData[2][1] = "";
-        gridData[2][2] = "";
+        gridData[0][1] = " ";
+        gridData[0][2] = " ";
+        gridData[1][0] = " ";
+        gridData[1][1] = " ";
+        gridData[1][2] = " ";
+        gridData[2][0] = " ";
+        gridData[2][1] = " ";
+        gridData[2][2] = " ";
         gridOne.setGrid(gridData);
         listOfGrids.add(gridOne);
 
