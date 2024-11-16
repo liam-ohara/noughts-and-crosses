@@ -371,5 +371,22 @@ class PlayerManagerServiceImplTest {
 
     }
 
+    @Test
+    @DisplayName("Calls getListOfPlayers and updatePlayer methods in PlayersRepository when player has less than 3 moves remaining.")
+    void testResetPlayerMovesRemaining_WhenPlayerHasLessThanThreeMovesRemaining() {
 
+        playerOne.setMovesRemaining(2);
+        playerTwo.setMovesRemaining(3);
+        listOfPlayers.add(playerOne);
+        listOfPlayers.add(playerTwo);
+
+        when(mockPlayersRepository.getListOfPlayers()).thenReturn(listOfPlayers);
+
+        playerManagerServiceImpl.resetPlayerMovesRemaining(playerOne.getPlayerName());
+
+        verify(mockPlayersRepository, times(1)).getListOfPlayers();
+        verify(mockPlayersRepository, times(1)).updatePlayer(Mockito.any());
+        assertEquals(5, playerOne.getMovesRemaining());
+
+    }
 }

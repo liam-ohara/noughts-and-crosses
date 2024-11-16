@@ -196,5 +196,19 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
     }
 
     @Override
-    public void resetPlayerMovesRemaining(String playerName) {}
+    public void resetPlayerMovesRemaining(String playerName) {
+
+        try {
+            List<Player> listOfPlayers = playersRepository.getListOfPlayers();
+
+            for (Player p : listOfPlayers) {
+                if (p.getPlayerName().equalsIgnoreCase(playerName)) {
+                    p.setMovesRemaining(5);
+                    playersRepository.updatePlayer(p);
+
+                }
+            }
+        } catch (NullPointerException ignored) {}
+    }
+
 }
