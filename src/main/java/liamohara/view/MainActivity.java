@@ -22,7 +22,32 @@ public class MainActivity {
     private GameController gameController = new GameController();
     private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-    public void run() {}
+    public void run() throws IOException {
+        boolean hasSetupRun = false;
+        boolean isStillPlaying = true;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        printMessages(welcome());
+        String wantToPlay = reader.readLine();
+        if (wantToPlay.equalsIgnoreCase("Y")) {
+            setup();
+            hasSetupRun = true;
+
+            while (isStillPlaying) {
+                play();
+                System.out.println("Do you want to play another game? [Y] or any other key to quit and hit ENTER.");
+                String answer = reader.readLine();
+
+                if (!(answer.equalsIgnoreCase("Y"))) {
+                    isStillPlaying = false;
+
+                }
+            }
+        }
+    }
+
+//    public void run() {}
+
 
     protected ArrayList<String> welcome() {
 
@@ -139,7 +164,139 @@ public class MainActivity {
         }
     }
 
-    protected void play() {}
+    protected void play() throws IOException {
+
+        //Print table with players
+        printMessages(drawPlayerTable(getPlayersData()));
+        String answerYN;
+        boolean isReady = false;
+        boolean isInputInvalid = true;
+
+        while (isInputInvalid) {
+
+
+//            try (
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//            )
+//            {
+            System.out.println("Are the players above correct and are you ready to start? [Y / N] and hit ENTER.");
+            answerYN = reader.readLine();
+
+            switch (answerYN) {
+                case "Y":
+                    isReady = true;
+                    isInputInvalid = false;
+                    break;
+
+                case "y":
+                    isReady = true;
+                    isInputInvalid = false;
+                    break;
+
+                case "N":
+                    isInputInvalid = false;
+                    break;
+
+                case "n":
+                    isInputInvalid = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid input. Please enter Y or N.");
+                    break;
+
+            }
+//            }
+        }
+
+        //Confirm with user whether they are ready to start; yes continues, no ends the app
+        if (isReady && !isInputInvalid) {
+            int currentGameId = gameController.startNewGame();
+            int currentGameMovesRemaining = gameController.getMovesRemaining(currentGameId);
+            boolean isGameWon = false;
+            String[] gameResult;
+            gridController.addNewGrid(currentGameId);
+
+            //display game grid
+            printMessages(drawGrid(currentGameId));
+
+            //Randomly select player to go first
+            int coinFlip = flipCoin();
+            String startingPlayerName;
+            String secondPlayerName;
+            ArrayList<String> listOfPlayerNames = playerController.getPlayerNames();
+
+            if (coinFlip == 0) {
+                startingPlayerName = listOfPlayerNames.getFirst();
+                secondPlayerName = listOfPlayerNames.getLast();
+
+            } else {
+                startingPlayerName = listOfPlayerNames.getLast();
+                secondPlayerName = listOfPlayerNames.getFirst();
+
+            }
+
+            System.out.println(startingPlayerName + " moves first.");
+            String playerNameToMove = startingPlayerName;
+            String playerNameLastMoved;
+
+            //While loop limited by number of moves remaining
+            while (currentGameMovesRemaining > 0 && !isGameWon ) {
+
+                //Ask starting player to enter move coordinates
+                //Update grid
+                //Update player moves remaining
+                //Update game moves remaining
+                playerMove(currentGameId, playerNameToMove);
+
+                //display game grid
+                printMessages(drawGrid(currentGameId));
+
+                //Update name of player who last moved
+                playerNameLastMoved = playerNameToMove;
+
+                //Flip player to move
+                if (playerNameLastMoved.equalsIgnoreCase(startingPlayerName)) {
+                    playerNameToMove = secondPlayerName;
+
+                } else {
+                    playerNameToMove = startingPlayerName ;
+
+                }
+                //Update current game moves remaining
+                currentGameMovesRemaining --;
+
+                if (currentGameMovesRemaining < 5) {
+                    gameResult = analyseGame(currentGameId, startingPlayerName, secondPlayerName);
+
+                    if (gameResult[0].equalsIgnoreCase("won")) {
+                        currentGameMovesRemaining = 0;
+                        postResult(currentGameId, gameResult[1]);
+
+                    }
+                }
+            }
+
+            //Determine whether game won or drawn
+            gameResult = analyseGame(currentGameId, startingPlayerName, secondPlayerName);
+
+            //Display result
+            if (gameResult[0].equalsIgnoreCase("won")) {
+                System.out.println("Game " + gameResult[0] + " by " + gameResult[1] + "!");
+
+            } else {
+                System.out.println("Game was a draw.");
+
+            }
+
+            //Print table with players
+            printMessages(drawPlayerTable(getPlayersData()));
+
+        }
+    }
+
+
+//    protected void play() {}
 
     protected String[][] getPlayersData() {
 
@@ -541,7 +698,7 @@ public class MainActivity {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (gridData[i][j] == null) {
-                    gridData[i][j] = "";
+                    gridData[i][j] = " ";
                 }
                 else {
                     if (gridData[i][j].equalsIgnoreCase("O")) {
@@ -564,7 +721,7 @@ public class MainActivity {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (gridData[i][j] == null) {
-                    gridData[i][j] = "";
+                    gridData[i][j] = " ";
                 }
                 else {
                     if (gridData[i][j].equalsIgnoreCase("X")) {
@@ -585,7 +742,7 @@ public class MainActivity {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (gridData[j][i] == null) {
-                    gridData[j][i] = "";
+                    gridData[j][i] = " ";
                 }
                 else {
                     if (gridData[j][i].equalsIgnoreCase("O")) {
@@ -605,7 +762,7 @@ public class MainActivity {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (gridData[j][i] == null) {
-                    gridData[j][i] = "";
+                    gridData[j][i] = " ";
                 }
                 else {
                     if (gridData[j][i].equalsIgnoreCase("X")) {
