@@ -44,7 +44,6 @@ public class GridManagerServiceImpl implements GridManagerService {
             }
             if (confirmedGrid != null) {
                 gridsRepository.addNewGrid(newGrid);
-                System.out.println("New grid added with game id: " + newGrid.getGameId());
 
             }
         }
@@ -65,7 +64,6 @@ public class GridManagerServiceImpl implements GridManagerService {
         Grid grid = null;
 
         for (int i = 0; i < listOfGrids.size(); i++) {
-            System.out.println("Grid game id: " + listOfGrids.get(i).getGameId());
             if (listOfGrids.get(i).getGameId() == gameId) {
                 grid = listOfGrids.get(i);
 
