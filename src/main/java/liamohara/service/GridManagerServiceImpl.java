@@ -109,10 +109,11 @@ public class GridManagerServiceImpl implements GridManagerService {
             if (listOfGrids.get(i).getGameId() == gameId) {
                 updatedGrid = listOfGrids.get(i);
 
-            } else {
-                throw new GridNotFoundException(Integer.toString(gameId));
-
             }
+        }
+
+        if (updatedGrid == null) {
+            throw new GridNotFoundException(Integer.toString(gameId));
         }
 
         if (isPlayerNought) {
