@@ -24,6 +24,7 @@ public class GridManagerServiceImpl implements GridManagerService {
         String[][] newGridData = new String[3][3];
         Grid newGrid = new Grid(gameId);
         newGrid.setGrid(newGridData);
+        Grid confirmedGrid = null;
 
         listOfGrids = gridsRepository.getListOfGrids();
 
@@ -37,9 +38,14 @@ public class GridManagerServiceImpl implements GridManagerService {
                     throw new GameIdAlreadyAssignedException(Integer.toString(gameId));
 
                 } else {
-                    gridsRepository.addNewGrid(newGrid);
+                    confirmedGrid = newGrid;
 
                 }
+            }
+            if (confirmedGrid != null) {
+                gridsRepository.addNewGrid(newGrid);
+                System.out.println("New grid added with game id: " + newGrid.getGameId());
+
             }
         }
     }
@@ -59,13 +65,15 @@ public class GridManagerServiceImpl implements GridManagerService {
         Grid grid = null;
 
         for (int i = 0; i < listOfGrids.size(); i++) {
+            System.out.println("Grid game id: " + listOfGrids.get(i).getGameId());
             if (listOfGrids.get(i).getGameId() == gameId) {
                 grid = listOfGrids.get(i);
 
-            } else {
+            }
+        }
+        if (grid == null) {
                 throw new GridNotFoundException(Integer.toString(gameId));
 
-            }
         }
         return grid.getGrid();
 

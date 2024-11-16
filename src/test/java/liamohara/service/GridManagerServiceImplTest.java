@@ -113,6 +113,28 @@ class GridManagerServiceImplTest {
     }
 
     @Test
+    @DisplayName("Returns null two-dimensional array of size 3x3 when a second game has started")
+    void testGetGrid_WhenNewGameStartedWithRepositoryContainingMoreThanOneGrid() {
+
+        String[][] gridData = new String[3][3];
+        gridOne.setGrid(gridData);
+        Grid gridTwo = new Grid(2);
+        gridTwo.setGrid(gridData);
+        listOfGrids.add(gridOne);
+        listOfGrids.add(gridTwo);
+
+        int expectedGridRowSize = 3;
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        String[][] result = gridManagerServiceImpl.getGrid(2);
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        assertEquals(expectedGridRowSize, result.length);
+
+    }
+
+    @Test
     @DisplayName("Throw NoGridsException when method GridsRespository is empty")
     void testGetGrid_WhenGridsRespositoryIsEmpty() {
 
