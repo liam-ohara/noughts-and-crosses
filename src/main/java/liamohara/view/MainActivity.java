@@ -662,9 +662,6 @@ public class MainActivity {
                 winnerName = playerTwo;
 
             }
-            gameController.setWinner(gameId, winnerName);
-            playerController.updatePlayerScore(winnerName);
-
         }
         gameAnalysis[0] = gameResult;
 

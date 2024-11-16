@@ -492,8 +492,6 @@ class MainActivityTest {
         verify(mockGridController, times(1)).getGrid(gameId);
         verify(mockPlayerController, times(1)).getPlayerRole(playerOneName);
         verify(mockPlayerController, times(1)).getPlayerRole(playerTwoName);
-        verify(mockPlayerController, times(1)).updatePlayerScore(playerOneName);
-        verify(mockGameController, times(1)).setWinner(gameId, playerOneName);
         assertAll(
                 () -> assertEquals(expectedResults[0], result[0]),
                 () -> assertEquals(expectedResults[1], result[1]));
@@ -521,8 +519,6 @@ class MainActivityTest {
         verify(mockGridController, times(1)).getGrid(gameId);
         verify(mockPlayerController, times(1)).getPlayerRole(playerOneName);
         verify(mockPlayerController, times(1)).getPlayerRole(playerTwoName);
-        verify(mockPlayerController, times(0)).updatePlayerScore(playerOneName);
-        verify(mockGameController, times(0)).setWinner(gameId, playerOneName);
         assertAll(
                 () -> assertEquals(expectedResults[0], result[0]),
                 () -> assertEquals(expectedResults[1], result[1]));
@@ -550,8 +546,6 @@ class MainActivityTest {
         verify(mockGridController, times(1)).getGrid(gameId);
         verify(mockPlayerController, times(1)).getPlayerRole(playerOneName);
         verify(mockPlayerController, times(1)).getPlayerRole(playerTwoName);
-        verify(mockPlayerController, times(1)).updatePlayerScore(playerOneName);
-        verify(mockGameController, times(1)).setWinner(gameId, playerOneName);
         assertAll(
                 () -> assertEquals(expectedResults[0], result[0]),
                 () -> assertEquals(expectedResults[1], result[1]));
