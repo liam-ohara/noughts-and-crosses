@@ -194,4 +194,7 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
         return playerRole;
 
     }
+
+    @Override
+    public void resetPlayerMovesRemaining(String playerName) {}
 }

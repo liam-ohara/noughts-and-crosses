@@ -18,4 +18,6 @@ public interface PlayerManagerService {
 
     String getPlayerRole(String playerName);
 
+    void resetPlayerMovesRemaining(String playerName);
+
 }
