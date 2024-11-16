@@ -203,9 +203,11 @@ public class PlayerManagerServiceImpl implements PlayerManagerService {
 
             for (Player p : listOfPlayers) {
                 if (p.getPlayerName().equalsIgnoreCase(playerName)) {
-                    p.setMovesRemaining(5);
-                    playersRepository.updatePlayer(p);
+                    if (p.getMovesRemaining() < 3) {
+                        p.setMovesRemaining(5);
+                        playersRepository.updatePlayer(p);
 
+                    }
                 }
             }
         } catch (NullPointerException ignored) {}
