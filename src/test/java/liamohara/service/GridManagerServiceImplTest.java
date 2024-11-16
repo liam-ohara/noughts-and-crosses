@@ -77,6 +77,24 @@ class GridManagerServiceImplTest {
     }
 
     @Test
+    @DisplayName("Calls getListOfGrids and addNewGrid methods in GridsRepository once each when a unique game ID is provide and repository is not empty")
+    void testAddNewGrid_WhenGameIDIsUnique() {
+
+        String[][] gridData = new String[3][3];
+        gridOne.setGrid(gridData);
+        listOfGrids.add(gridOne);
+
+        when(mockGridsRepository.getListOfGrids()).thenReturn(listOfGrids);
+
+        gridManagerServiceImpl.addNewGrid(2);
+
+        verify(mockGridsRepository, times(1)).getListOfGrids();
+        verify(mockGridsRepository, times(1)).addNewGrid(Mockito.any());
+
+    }
+
+
+    @Test
     @DisplayName("Returns null two-dimensional array of size 3x3 when no players have moved")
     void testGetGrid_WhenNoPlayersHaveMoved() {
 
