@@ -41,4 +41,8 @@ public class PlayerController {
         return playerManagerService.getPlayerRole(playerName);
     }
 
+    public void resetPlayerMovesRemaining(String playerName) {
+        playerManagerService.resetPlayerMovesRemaining(playerName);
+    }
+
 }

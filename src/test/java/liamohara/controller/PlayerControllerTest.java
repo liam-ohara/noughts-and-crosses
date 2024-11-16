@@ -198,4 +198,16 @@ class PlayerControllerTest {
         assertEquals(expectedResult, result);
 
     }
+
+    @Test
+    @DisplayName("Calls resetPlayerMovesRemaining once when called")
+    void testRestPlayerMovesRemaining() {
+
+        String playerName = "Player One";
+
+        playerController.resetPlayerMovesRemaining(playerName);
+
+        verify(mockPlayerManagerServiceImpl, times(1)).resetPlayerMovesRemaining(playerName);
+
+    }
 }
