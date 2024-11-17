@@ -22,9 +22,7 @@ public class MainActivity {
     private GameController gameController = new GameController();
     private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-
     public void run() {}
-
 
     protected ArrayList<String> welcome() {
 
@@ -82,10 +80,10 @@ public class MainActivity {
                 System.out.println("Please enter the role of Player One. [O / X] and hit ENTER.");
                 String playerOneRole = reader.readLine();
 
-                if (playerOneRole.equals("O") || playerOneRole.equals("X")) {
+                if (playerOneRole.equalsIgnoreCase("O") || playerOneRole.equalsIgnoreCase("X")) {
                     isPlayerOneRoleInputInvalid = false;
 
-                    if (playerOneRole.equals("O")) {
+                    if (playerOneRole.equalsIgnoreCase("O")) {
                         isPlayerOneNought = true;
 
                     } else {
@@ -141,7 +139,112 @@ public class MainActivity {
         }
     }
 
-    protected void play() {}
+    protected void play() throws IOException {
+
+        printMessages(drawPlayerTable(getPlayersData()));
+        String answerYN;
+        boolean isReady = false;
+        boolean isInputInvalid = true;
+
+        while (isInputInvalid) {
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+            System.out.println("Are the players above correct and are you ready to start? [Y / N] and hit ENTER.");
+            answerYN = reader.readLine();
+
+            switch (answerYN) {
+                case "Y":
+                    isReady = true;
+                    isInputInvalid = false;
+                    break;
+
+                case "y":
+                    isReady = true;
+                    isInputInvalid = false;
+                    break;
+
+                case "N":
+                    isInputInvalid = false;
+                    break;
+
+                case "n":
+                    isInputInvalid = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid input. Please enter Y or N.");
+                    break;
+
+            }
+        }
+
+        if (isReady && !isInputInvalid) {
+            int currentGameId = gameController.startNewGame();
+            int currentGameMovesRemaining = gameController.getMovesRemaining(currentGameId);
+            boolean isGameWon = false;
+            String[] gameResult;
+
+            gridController.addNewGrid(currentGameId);
+            printMessages(drawGrid(currentGameId));
+
+            int coinFlip = flipCoin();
+            String startingPlayerName;
+            String secondPlayerName;
+            ArrayList<String> listOfPlayerNames = playerController.getPlayerNames();
+
+            if (coinFlip == 0) {
+                startingPlayerName = listOfPlayerNames.getFirst();
+                secondPlayerName = listOfPlayerNames.getLast();
+
+            } else {
+                startingPlayerName = listOfPlayerNames.getLast();
+                secondPlayerName = listOfPlayerNames.getFirst();
+
+            }
+            System.out.println(startingPlayerName + " moves first.");
+            String playerNameToMove = startingPlayerName;
+            String playerNameLastMoved;
+
+            while (currentGameMovesRemaining > 0 && !isGameWon ) {
+                playerMove(currentGameId, playerNameToMove);
+                printMessages(drawGrid(currentGameId));
+                playerNameLastMoved = playerNameToMove;
+
+                if (playerNameLastMoved.equalsIgnoreCase(startingPlayerName)) {
+                    playerNameToMove = secondPlayerName;
+
+                } else {
+                    playerNameToMove = startingPlayerName ;
+
+                }
+                currentGameMovesRemaining --;
+
+                if (currentGameMovesRemaining < 5) {
+                    gameResult = analyseGame(currentGameId, startingPlayerName, secondPlayerName);
+
+                    if (gameResult[0].equalsIgnoreCase("won")) {
+                        currentGameMovesRemaining = 0;
+                        postResult(currentGameId, gameResult[1]);
+
+                    }
+                }
+            }
+            gameResult = analyseGame(currentGameId, startingPlayerName, secondPlayerName);
+
+            if (gameResult[0].equalsIgnoreCase("won")) {
+                System.out.println("Game " + gameResult[0] + " by " + gameResult[1] + "!");
+
+            } else {
+                System.out.println("Game was a draw.");
+
+            }
+            printMessages(drawPlayerTable(getPlayersData()));
+            playerController.resetPlayerMovesRemaining(startingPlayerName);
+            playerController.resetPlayerMovesRemaining(secondPlayerName);
+
+        }
+    }
 
     protected String[][] getPlayersData() {
 
@@ -487,11 +590,11 @@ public class MainActivity {
                 int columnSelection;
                 int rowSelection;
 
-                System.out.println(playerName + " please enter column number [1 - 3] and hit ENTER.");
+                System.out.println(playerName + ", please enter column number [1 - 3] and hit ENTER.");
                 columnSelection = (Integer.parseInt(reader.readLine())) - 1;
 
                 if (!(columnSelection > 2 || columnSelection < 0)) {
-                    System.out.println(playerName + " please enter row number [1 - 3] and hit ENTER.");
+                    System.out.println(playerName + ", please enter row number [1 - 3] and hit ENTER.");
                     rowSelection = (Integer.parseInt(reader.readLine())) - 1;
 
                     if (!(rowSelection > 2 || rowSelection < 0)) {
