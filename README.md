@@ -12,7 +12,7 @@ This game has the following features:
 >* Players are given a welcome message explaining the game
 >* Players can enter a player name
 >* The first player can choose their marker (nought or cross)
->* The starting player for the first game is selected at random. The starting player alternates thereafter
+>* The starting player for each game is selected at random
 >* Players are shown a visual representation of the grid that is updated after each move
 >* Players are advised of illegal moves and prompted to re-enter their move
 >* Once the minimum number of moves required to win a game have been played, the game checks for a win and after every subsequent move until no moves remain
