@@ -17,7 +17,7 @@ This game has the following features:
 >* Players are advised of illegal moves and prompted to re-enter their move
 >* Once the minimum number of moves required to win a game have been played, the game checks for a win and after every subsequent move until no moves remain
 >* Players are shown the game result, score and moves remaining
->* Player can play multiple games
+>* Players can play multiple games
 
 ## Installation
 
