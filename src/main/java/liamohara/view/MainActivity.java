@@ -22,7 +22,27 @@ public class MainActivity {
     private GameController gameController = new GameController();
     private GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-    public void run() {}
+    public void run() throws IOException {
+
+        boolean isStillPlaying = true;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        printMessages(welcome());
+        String wantToPlay = reader.readLine();
+        if (wantToPlay.equalsIgnoreCase("Y")) {
+            setup();
+
+            while (isStillPlaying) {
+                play();
+                System.out.println("Do you want to play another game? [Y] or any other key to quit and hit ENTER.");
+                String answer = reader.readLine();
+
+                if (!(answer.equalsIgnoreCase("Y"))) {
+                    isStillPlaying = false;
+
+                }
+            }
+        }
+    }
 
     protected ArrayList<String> welcome() {
 
